@@ -81,8 +81,8 @@ st.markdown("""
 st.markdown("""
 <div class="header-card">
     <img src="https://trmk.atmi.ac.id/wp-content/uploads/2023/06/logoatmiWARNA.png" />
-    <h1>Sistem Informasi Akademik</h1>
-    <p>Program Studi Mekatronika &middot; Politeknik ATMI Surakarta</p>
+    <h1>Rumpun Prodi Mekatronika</h1>
+    <p> &middot; Politeknik ATMI Surakarta</p>
 </div>
 """, unsafe_allow_html=True)
 
