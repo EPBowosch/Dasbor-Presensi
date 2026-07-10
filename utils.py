@@ -2,7 +2,7 @@ import streamlit as st
 import gspread
 from google.oauth2.service_account import Credentials
 
-SPREADSHEET_URL = "https://google.com"
+SPREADSHEET_URL = "https://docs.google.com/spreadsheets/d/1X4ViFRgzWB9ZdLfX_DccnAf1gA7E3sSdS_1pX5ucd2k/edit?usp=sharing"
 SCOPES = ["https://googleapis.com"]
 
 
