@@ -59,7 +59,7 @@ require_login()
 st.markdown(f"""
 <div class="header-card">
     <img src="https://trmk.atmi.ac.id/wp-content/uploads/2023/06/logoatmiWARNA.png" />
-    <h1>Sistem Informasi Akademik</h1>
+    <h1>Sistem Informasi Praktikum Mekatronika ATMI Surakarta</h1>
     <p>Program Studi Mekatronika &middot; Politeknik ATMI Surakarta</p>
     <p style="margin-top:6px;">Login sebagai {st.user.email}</p>
 </div>
