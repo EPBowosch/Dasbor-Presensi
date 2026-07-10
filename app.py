@@ -118,7 +118,7 @@ menu_items = [
     {
         "title": "Input MKL",
         "sub": "Catat kegiatan praktikum harian",
-        "url": "https://script.google.com/a/macros/atmi.ac.id/s/AKfycbyJGN50wnNe8k0b1u9xj8XZoNXScqxrYVeJ1U4bg-z_JQbo_t-XRzHZyqe5b09YP-Co/exec",
+        "url": "https://accounts.google.com/Logout?continue=https://script.google.com/a/macros/atmi.ac.id/s/AKfycbyJGN50wnNe8k0b1u9xj8XZoNXScqxrYVeJ1U4bg-z_JQbo_t-XRzHZyqe5b09YP-Co/exec",
         "bg": "#e8f0fe",
         "color": "#1a3c6e",
         # ikon pensil/dokumen (Bootstrap Icons: pencil-square)
@@ -130,7 +130,7 @@ menu_items = [
     {
         "title": "Rekap Aktivitas Saya",
         "sub": "Lihat ringkasan dan riwayat aktivitas",
-        "url": "https://script.google.com/macros/s/AKfycbxKybxN1nlYBAGgb1btLXxJm_oqjmpabag__gDJLaBgknphvldsSmRWOg6zfaCVgJLu/exec",
+        "url": "https://accounts.google.com/Logout?continue=https://script.google.com/macros/s/AKfycbxKybxN1nlYBAGgb1btLXxJm_oqjmpabag__gDJLaBgknphvldsSmRWOg6zfaCVgJLu/exec",
         "bg": "#eafaf1",
         "color": "#1a7a4c",
         # ikon grafik batang (Bootstrap Icons: bar-chart-line)
