@@ -1,27 +1,38 @@
 import streamlit as st
 
 # ==========================================
-# 1. DEFINISI HALAMAN SECARA EKSPLISIT (Solusi Bug url_pathname)
+# 1. KONFIGURASI HALAMAN UTAMA (Sembunyikan Sidebar Bawaan)
 # ==========================================
-# Kita daftarkan file agar Streamlit tahu URL tujuannya sebelum menu digambar
+st.set_page_config(
+    page_title="Dasbor Presensi ATMI", 
+    initial_sidebar_state="collapsed" # Menyembunyikan sidebar bawaan agar menu kustom Anda tidak double
+)
+
+# ==========================================
+# 2. DEFINISI DAFTAR HALAMAN (Eksplisit & Aktif)
+# ==========================================
 halaman_home = st.Page("app.py", title="Menu Utama")
 halaman_input = st.Page("pages/1_Input_MKL.py", title="Input MKL")
 halaman_presensi = st.Page("pages/2_Presensi.py", title="Presensi")
 halaman_aktivitas = st.Page("pages/3_Aktivitas.py", title="Aktivitas")
 
-# Sembunyikan navigasi bawaan sidebar agar tampilan kustom Anda tidak double
+# Satukan ke dalam sistem router Streamlit
 pg = st.navigation(
     [halaman_home, halaman_input, halaman_presensi, halaman_aktivitas], 
-    position="hidden"
+    position="sidebar" # Diubah ke sidebar agar router aktif, tapi sidebarnya kita kunci ciut (collapsed) di atas
 )
 
 # ==========================================
-# 2. KONFIGURASI TAMPILAN (CSS KUSTOM)
+# 3. KONFIGURASI GAYA TAMPILAN (CSS KUSTOM)
 # ==========================================
 st.markdown("""
 <style>
-    #MainMenu, footer, header {visibility: hidden;}
-    .block-container {padding-top: 1.5rem; padding-bottom: 2rem; max-width: 480px;}
+    /* Menyembunyikan total tombol menu bawaan dan sidebar di tampilan mobile/desktop */
+    [data-testid="stSidebar"] { display: none !important; }
+    [data-testid="stSidebarCollapseButton"] { display: none !important; }
+    #MainMenu, footer, header { visibility: hidden !important; }
+    
+    .block-container { padding-top: 1.5rem; padding-bottom: 2rem; max-width: 480px; }
 
     .header-card {
         background: linear-gradient(135deg, #1a3c6e 0%, #0d1f3c 100%);
@@ -70,7 +81,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ==========================================
-# 3. KONTROL SISTEM LOGIN
+# 4. KONTROL SISTEM LOGIN
 # ==========================================
 try:
     from utils import require_login
@@ -81,7 +92,7 @@ except Exception as e:
     st.stop()
 
 # ==========================================
-# 4. TAMPILAN HALAMAN UTAMA (JIKA SUDAH LOGIN)
+# 5. TAMPILAN HALAMAN UTAMA (JIKA SUDAH LOGIN)
 # ==========================================
 if st.session_state.get("is_logged_in", False):
     user_email = st.session_state.get("user_email", "Pengguna ATMI")
@@ -96,14 +107,14 @@ if st.session_state.get("is_logged_in", False):
     </div>
     """, unsafe_allow_html=True)
 
-    # Menggambar Tombol Navigasi Menu Utama secara Aman menggunakan objek st.Page
+    # Menggambar Tombol Navigasi Menu Utama
     st.markdown('<div class="menu-label">MENU UTAMA</div>', unsafe_allow_html=True)
     
     st.page_link(halaman_input, label="📝  Input MKL", use_container_width=True)
     st.page_link(halaman_presensi, label="📊  Presensi", use_container_width=True)
     st.page_link(halaman_aktivitas, label="🗂️  Aktivitas", use_container_width=True)
     
-    # Tautan Informasi Luar
+    # Tautan Informasi Luar Website ATMI
     st.link_button("📢  Info Mekatro", "https://atmi.ac.id", use_container_width=True)
 
     # Fungsi Prosedur Logout
@@ -113,3 +124,11 @@ if st.session_state.get("is_logged_in", False):
 
     st.write("")
     st.button("Logout", on_click=proses_logout_kustom)
+
+# ==========================================
+# 6. EKSEKUSI ROUTER (Wajib agar halaman bisa berpindah)
+# ==========================================
+# Baris ini bertugas mengeksekusi perpindahan halaman saat st.page_link diklik
+if st.session_state.get("is_logged_in", False):
+    if st.navigation.get_page() != halaman_home:
+        pg.run()
