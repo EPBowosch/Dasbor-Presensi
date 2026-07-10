@@ -130,7 +130,7 @@ menu_items = [
     {
         "title": "Rekap Aktivitas Saya",
         "sub": "Lihat ringkasan dan riwayat aktivitas",
-        "url": "https://accounts.google.com/Logout?continue=https://script.google.com/a/macros/atmi.ac.id/s/AKfycbxKybxN1nlYBAGgb1btLXxJm_oqjmpabag__gDJLaBgknphvldsSmRWOg6zfaCVgJLu/exec",
+        "url": "https://accounts.google.com/Logout?continue=https://script.google.com/a/macros/atmi.ac.id/s/AKfycbwdIJxFrLHp5pLP0wmYe7yqvlCJB6zEERexu7j02qWYmxUYY9vk6xxO2J-VLaQDZzpG/exec",
         "bg": "#eafaf1",
         "color": "#1a7a4c",
         # ikon grafik batang (Bootstrap Icons: bar-chart-line)
