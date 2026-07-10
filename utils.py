@@ -22,30 +22,52 @@ def get_gspread_client():
 
 @st.cache_data(ttl=300) 
 def get_sheet_values(sheet_name: str):
-    """Fungsi asli Anda untuk menarik data tab."""
+    """Fungsi untuk menarik data tab Sheets."""
     gc = get_gspread_client()
     sh = gc.open_by_key(SPREADSHEET_ID)
     ws = sh.worksheet(sheet_name)
     return ws.get_all_values()
 
 def require_login():
-    """KEMBALI KE ASLI: Sistem Login Otomatis Google SSO tanpa field tambahan dengan perbaikan struktur st.columns."""
-    if not st.user.is_logged_in:
+    """Sistem Proteksi: Hanya ada SATU kolom isian input teks untuk Email SSO ATMI."""
+    # Inisialisasi status login di memori lokal jika belum ada
+    if "is_logged_in" not in st.session_state:
+        st.session_state.is_logged_in = False
+        st.session_state.user_email = ""
+
+    # Jika pengguna belum mengisi email dan menekan tombol login
+    if not st.session_state.is_logged_in:
         st.markdown(
-            "<div style='text-align:center; padding-top:60px;'>"
-            "<h3>Sistem Informasi Akademik</h3>"
-            "<p style='color:#6b7280;'>Silakan login dengan akun ATMI kamu untuk melanjutkan.</p>"
+            "<div style='text-align:center; padding-top:40px;'>"
+            "<h3>Sistem Informasi Akademik Mekatronika</h3>"
+            "<p style='color:#6b7280;'>Silakan masukkan Email ATMI Anda untuk melanjutkan.</p>"
             "</div>",
             unsafe_allow_html=True,
         )
         
-        # PERBAIKAN DI SINI: Memberikan angka 3 agar Streamlit tahu ingin membagi halaman menjadi 3 kolom
+        # PERBAIKAN: Memberikan angka 3 agar tata letak kolom seimbang dan tidak memicu crash
         col1, col2, col3 = st.columns(3)
         with col2:
-            st.button("Login dengan Google", on_click=st.login, use_container_width=True)
-        st.stop()
+            # HANYA ADA SATU ISIAN EMAIL SEPERTI YANG ANDA MAKSUD
+            input_email = st.text_input("Email Resmi ATMI", placeholder="nama@student.atmi.ac.id")
+            tombol_login = st.button("Masuk ke Sistem", use_container_width=True)
+            
+            if tombol_login:
+                if input_email and "@" in input_email:
+                    # Simpan email ke memori session state lokal
+                    st.session_state.user_email = input_email.strip()
+                    st.session_state.is_logged_in = True
+                    st.success("Login sukses!")
+                    st.rerun()  # Muat ulang halaman untuk membuka menu utama di app.py
+                else:
+                    st.error("Mohon masukkan format email ATMI yang valid!")
+                    
+        st.stop() # Blokir menu utama sebelum input email diisi
 
 def filter_by_email(values: list, email_col_index: int):
-    """Logika asli Anda untuk mencocokkan email login otomatis vs sheet."""
-    email = st.user.email
+    """Mencocokkan email login dari kolom isian teks dengan data di sheet."""
+    # Mengambil data email dari memori isian manual secara aman
+    email = st.session_state.get("user_email", "")
+    if not email:
+        return []
     return [row for row in values if len(row) > email_col_index and row[email_col_index] == email]
