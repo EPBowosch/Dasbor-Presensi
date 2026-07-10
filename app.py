@@ -1,9 +1,9 @@
 import streamlit as st
 
-st.title("Hello world")
-st.write("Dasbor presensi mahasiswa - masih tahap uji coba")
+st.title("Sistem Informasi Praktikum MEkatronika ATMI")
+st.write("dasbor sementara")
 st.set_page_config(
-    page_title="SI Akademik - Mekatronika ATMI",
+    page_title="SIPMAS",
     page_icon="https://trmk.atmi.ac.id/wp-content/uploads/2023/06/atmi-logo-300x300.png",
     layout="centered",
     initial_sidebar_state="collapsed",
