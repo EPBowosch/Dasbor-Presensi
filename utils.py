@@ -36,7 +36,7 @@ def get_sheet_values(sheet_name: str):
     return ws.get_all_values()
 
 def require_login():
-    """Sistem Proteksi: Login Otomatis Google bawaan Streamlit Cloud."""
+    """Sistem Proteksi: Login Otomatis Google bawaan dengan Field Tambahan."""
     # Menghubungkan st.session_state dengan st.user bawaan secara otomatis
     if st.user.is_logged_in:
         st.session_state.is_logged_in = True
@@ -48,16 +48,30 @@ def require_login():
     # Jika user belum terdeteksi login otomatis oleh Google, kunci halaman
     if not st.user.is_logged_in:
         st.markdown(
-            "<div style='text-align:center; padding-top:60px;'>"
+            "<div style='text-align:center; padding-top:40px;'>"
             "<h3>Sistem Informasi Akademik Mekatronika</h3>"
-            "<p style='color:#6b7280;'>Silakan login dengan akun ATMI kamu untuk melanjutkan.</p>"
+            "<p style='color:#6b7280;'>Silakan isi data dan login untuk melanjutkan.</p>"
             "</div>",
             unsafe_allow_html=True,
         )
-        col = st.columns([1, 2, 1])[1]
-        with col:
-            # Memanggil fungsi login otomatis bawaan Streamlit Cloud
-            st.button("Login dengan Google", on_click=st.login, use_container_width=True)
+        
+        col1, col2, col3 = st.columns([1, 2, 1])
+        with col2:
+            # --- FIELD ISIAN MANDIRI YANG ANDA MAKSUD ---
+            # Data ini akan tersimpan di memory session_state meskipun menggunakan st.login
+            st.session_state.nama_lengkap = st.text_input("Nama Lengkap / NIM", placeholder="Masukkan nama atau NIM kamu")
+            st.session_state.kelas = st.selectbox("Pilih Kelas", ["", "MK-1A", "MK-1B", "MK-2A", "MK-2B", "MK-3A", "MK-3B"])
+            
+            st.write("") # Jeda jarak
+            
+            # Tombol Login Otomatis Google bawaan Streamlit Cloud
+            tombol_klik = st.button("Login dengan Google / ATMI", on_click=st.login, use_container_width=True)
+            
+            # Validasi jika tombol diklik tapi field masih kosong
+            if tombol_klik and (not st.session_state.nama_lengkap or st.session_state.kelas == ""):
+                st.error("⚠️ Mohon isi Nama Lengkap dan Pilih Kelas terlebih dahulu!")
+                st.stop()
+                
         st.stop()
 
 def filter_by_email(values: list, email_col_index: int):
