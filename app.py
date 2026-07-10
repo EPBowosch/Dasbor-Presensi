@@ -1,38 +1,11 @@
 import streamlit as st
+from utils import require_login
 
-# ==========================================
-# 1. KONFIGURASI HALAMAN UTAMA
-# ==========================================
-st.set_page_config(
-    page_title="Dasbor Presensi ATMI", 
-    initial_sidebar_state="collapsed"
-)
-
-# ==========================================
-# 2. DEFINISI DAFTAR HALAMAN (Eksplisit)
-# ==========================================
-halaman_home = st.Page("app.py", title="Menu Utama")
-halaman_input = st.Page("pages/1_Input_MKL.py", title="Input MKL")
-halaman_presensi = st.Page("pages/2_Presensi.py", title="Presensi")
-halaman_aktivitas = st.Page("pages/3_Aktivitas.py", title="Aktivitas")
-
-# Daftarkan semua rute halaman ke dalam router Streamlit
-pg = st.navigation(
-    [halaman_home, halaman_input, halaman_presensi, halaman_aktivitas], 
-    position="sidebar"
-)
-
-# ==========================================
-# 3. KONFIGURASI GAYA TAMPILAN (CSS KUSTOM)
-# ==========================================
+# 1. Konfigurasi CSS Kustom (Tetap sama seperti milik Anda)
 st.markdown("""
 <style>
-    /* Menyembunyikan total bilah samping bawaan Streamlit */
-    [data-testid="stSidebar"] { display: none !important; }
-    [data-testid="stSidebarCollapseButton"] { display: none !important; }
-    #MainMenu, footer, header { visibility: hidden !important; }
-    
-    .block-container { padding-top: 1.5rem; padding-bottom: 2rem; max-width: 480px; }
+    #MainMenu, footer, header {visibility: hidden;}
+    .block-container {padding-top: 1.5rem; padding-bottom: 2rem; max-width: 480px;}
 
     .header-card {
         background: linear-gradient(135deg, #1a3c6e 0%, #0d1f3c 100%);
@@ -80,50 +53,35 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# ==========================================
-# 4. KONTROL SISTEM LOGIN VIA UTILS
-# ==========================================
-try:
-    from utils import require_login
-    require_login()
-except Exception as e:
-    st.error("Gagal memuat modul login otomatis dari berkas utils.py.")
-    st.exception(e)
-    st.stop()
+# 2. Jalankan fungsi pengecekan login dari utils
+require_login()
 
-# ==========================================
-# 5. TAMPILAN HALAMAN UTAMA (JIKA USER LOGGED IN)
-# ==========================================
-if st.session_state.get("is_logged_in", False):
-    user_email = st.session_state.get("user_email", "Pengguna ATMI")
+# 3. Ambil data email dari session state (Amankan dari crash)
+# CATATAN: Ubah kata "email" di bawah sesuai dengan nama variabel session_state yang ada di utils.py Anda
+user_email = st.session_state.get("email", "Pengguna Mekatronika")
 
-    st.markdown(f"""
-    <div class="header-card">
-        <img src="https://atmi.ac.id" />
-        <h1>Sistem Informasi Praktikum Mekatronika ATMI Surakarta</h1>
-        <p>Program Studi Mekatronika &middot; Politeknik ATMI Surakarta</p>
-        <p style="margin-top:6px;">Login sebagai: <b>{user_email}</b></p>
-    </div>
-    """, unsafe_allow_html=True)
+# 4. Tampilkan Header Card dengan email yang aman
+st.markdown(f"""
+<div class="header-card">
+    <img src="https://atmi.ac.id" />
+    <h1>Sistem Informasi Praktikum Mekatronika ATMI Surakarta</h1>
+    <p>Program Studi Mekatronika &middot; Politeknik ATMI Surakarta</p>
+    <p style="margin-top:6px;">Login sebagai <b>{user_email}</b></p>
+</div>
+""", unsafe_allow_html=True)
 
-    st.markdown('<div class="menu-label">MENU UTAMA</div>', unsafe_allow_html=True)
-    
-    # Memicu perpindahan rute URL internal menggunakan objek halaman yang valid
-    st.page_link(halaman_input, label="📝  Input MKL", use_container_width=True)
-    st.page_link(halaman_presensi, label="📊  Presensi", use_container_width=True)
-    st.page_link(halaman_aktivitas, label="🗂️  Aktivitas", use_container_width=True)
-    
-    st.link_button("📢  Info Mekatro", "https://atmi.ac.id", use_container_width=True)
+# 5. Menu Utama Navigasi
+st.markdown('<div class="menu-label">MENU UTAMA</div>', unsafe_allow_html=True)
+st.page_link("pages/1_Input_MKL.py", label="📝  Input MKL", use_container_width=True)
+st.page_link("pages/2_Presensi.py", label="📊  Presensi", use_container_width=True)
+st.page_link("pages/3_Aktivitas.py", label="🗂️  Aktivitas", use_container_width=True)
+st.link_button("📢  Info Mekatro", "https://atmi.ac.id", use_container_width=True)
 
-    def proses_logout_kustom():
-        st.session_state.clear()
-        st.rerun()
+# 6. Fungsi Logout Kustom untuk membersihkan session state
+def proses_logout_kustom():
+    st.session_state.clear()       # Menghapus semua data session login
+    st.success("Berhasil logout!") # Menampilkan info sukses singkat
+    st.rerun()                     # Memaksa aplikasi memuat ulang dan kembali ke menu login
 
-    st.write("")
-    st.button("Logout", on_click=proses_logout_kustom)
-
-# ==========================================
-# 6. EKSEKUSI JALANNYA NAVIGASI (Wajib Berdiri Sendiri)
-# ==========================================
-# Memastikan modul inti router mengeksekusi perpindahan file saat st.page_link ditekan
-pg.run()
+st.write("")
+st.button("Logout", on_click=proses_logout_kustom)
