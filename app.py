@@ -1,7 +1,23 @@
 import streamlit as st
-import os
 
-# 1. Konfigurasi Gaya Tampilan (CSS Kustom)
+# ==========================================
+# 1. DEFINISI HALAMAN SECARA EKSPLISIT (Solusi Bug url_pathname)
+# ==========================================
+# Kita daftarkan file agar Streamlit tahu URL tujuannya sebelum menu digambar
+halaman_home = st.Page("app.py", title="Menu Utama")
+halaman_input = st.Page("pages/1_Input_MKL.py", title="Input MKL")
+halaman_presensi = st.Page("pages/2_Presensi.py", title="Presensi")
+halaman_aktivitas = st.Page("pages/3_Aktivitas.py", title="Aktivitas")
+
+# Sembunyikan navigasi bawaan sidebar agar tampilan kustom Anda tidak double
+pg = st.navigation(
+    [halaman_home, halaman_input, halaman_presensi, halaman_aktivitas], 
+    position="hidden"
+)
+
+# ==========================================
+# 2. KONFIGURASI TAMPILAN (CSS KUSTOM)
+# ==========================================
 st.markdown("""
 <style>
     #MainMenu, footer, header {visibility: hidden;}
@@ -53,7 +69,9 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# 2. Validasi & Proteksi Login
+# ==========================================
+# 3. KONTROL SISTEM LOGIN
+# ==========================================
 try:
     from utils import require_login
     require_login()
@@ -62,44 +80,36 @@ except Exception as e:
     st.exception(e)
     st.stop()
 
-# 3. Ambil data Email dari memori Session State lokal
-user_email = st.session_state.get("user_email", "Pengguna ATMI")
+# ==========================================
+# 4. TAMPILAN HALAMAN UTAMA (JIKA SUDAH LOGIN)
+# ==========================================
+if st.session_state.get("is_logged_in", False):
+    user_email = st.session_state.get("user_email", "Pengguna ATMI")
 
-# 4. Tampilkan Kartu Informasi Header
-st.markdown(f"""
-<div class="header-card">
-    <img src="https://atmi.ac.id" />
-    <h1>Sistem Informasi Praktikum Mekatronika ATMI Surakarta</h1>
-    <p>Program Studi Mekatronika &middot; Politeknik ATMI Surakarta</p>
-    <p style="margin-top:6px;">Login sebagai: <b>{user_email}</b></p>
-</div>
-""", unsafe_allow_html=True)
+    # Tampilkan Informasi Header Card
+    st.markdown(f"""
+    <div class="header-card">
+        <img src="https://atmi.ac.id" />
+        <h1>Sistem Informasi Praktikum Mekatronika ATMI Surakarta</h1>
+        <p>Program Studi Mekatronika &middot; Politeknik ATMI Surakarta</p>
+        <p style="margin-top:6px;">Login sebagai: <b>{user_email}</b></p>
+    </div>
+    """, unsafe_allow_html=True)
 
-# 5. Navigasi Menu Utama Multipage
-st.markdown('<div class="menu-label">MENU UTAMA</div>', unsafe_allow_html=True)
+    # Menggambar Tombol Navigasi Menu Utama secara Aman menggunakan objek st.Page
+    st.markdown('<div class="menu-label">MENU UTAMA</div>', unsafe_allow_html=True)
+    
+    st.page_link(halaman_input, label="📝  Input MKL", use_container_width=True)
+    st.page_link(halaman_presensi, label="📊  Presensi", use_container_width=True)
+    st.page_link(halaman_aktivitas, label="🗂️  Aktivitas", use_container_width=True)
+    
+    # Tautan Informasi Luar
+    st.link_button("📢  Info Mekatro", "https://atmi.ac.id", use_container_width=True)
 
-if os.path.exists("pages/1_Input_MKL.py"):
-    st.page_link("pages/1_Input_MKL.py", label="📝  Input MKL", use_container_width=True)
-else:
-    st.error("⚠️ Berkas '1_Input_MKL.py' tidak ditemukan di dalam folder 'pages'.")
+    # Fungsi Prosedur Logout
+    def proses_logout_kustom():
+        st.session_state.clear()
+        st.rerun()
 
-if os.path.exists("pages/2_Presensi.py"):
-    st.page_link("pages/2_Presensi.py", label="📊  Presensi", use_container_width=True)
-else:
-    st.error("⚠️ Berkas '2_Presensi.py' tidak ditemukan di dalam folder 'pages'.")
-
-if os.path.exists("pages/3_Aktivitas.py"):
-    st.page_link("pages/3_Aktivitas.py", label="🗂️  Aktivitas", use_container_width=True)
-else:
-    st.error("⚠️ Berkas '3_Aktivitas.py' tidak ditemukan di dalam folder 'pages'.")
-
-# Tombol Tautan Eksternal Website ATMI
-st.link_button("📢  Info Mekatro", "https://atmi.ac.id", use_container_width=True)
-
-# 6. Fungsi dan Tombol Logout Mandiri
-def proses_logout_kustom():
-    st.session_state.clear()
-    st.rerun()
-
-st.write("")
-st.button("Logout", on_click=proses_logout_kustom)
+    st.write("")
+    st.button("Logout", on_click=proses_logout_kustom)
