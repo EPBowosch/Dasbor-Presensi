@@ -1,18 +1,7 @@
 import streamlit as st
 from utils import require_login
 
-st.write("Secrets top-level keys:", list(st.secrets.keys()))
-if "auth" in st.secrets:
-    st.write("Isi [auth] terbaca, keys:", list(st.secrets["auth"].keys()))
-else:
-    st.error("Section [auth] TIDAK terbaca oleh Streamlit!")
 
-st.set_page_config(
-    page_title="SI Akademik - Mekatronika ATMI",
-    page_icon="https://trmk.atmi.ac.id/wp-content/uploads/2023/06/atmi-logo-300x300.png",
-    layout="centered",
-    initial_sidebar_state="collapsed",
-)
 
 st.markdown("""
 <style>
