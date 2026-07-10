@@ -1,8 +1,7 @@
 import streamlit as st
 from utils import require_login
 
-
-
+# 1. Konfigurasi CSS Kustom (Tetap sama seperti milik Anda)
 st.markdown("""
 <style>
     #MainMenu, footer, header {visibility: hidden;}
@@ -54,22 +53,35 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+# 2. Jalankan fungsi pengecekan login dari utils
 require_login()
 
+# 3. Ambil data email dari session state (Amankan dari crash)
+# CATATAN: Ubah kata "email" di bawah sesuai dengan nama variabel session_state yang ada di utils.py Anda
+user_email = st.session_state.get("email", "Pengguna Mekatronika")
+
+# 4. Tampilkan Header Card dengan email yang aman
 st.markdown(f"""
 <div class="header-card">
-    <img src="https://trmk.atmi.ac.id/wp-content/uploads/2023/06/logoatmiWARNA.png" />
+    <img src="https://atmi.ac.id" />
     <h1>Sistem Informasi Praktikum Mekatronika ATMI Surakarta</h1>
     <p>Program Studi Mekatronika &middot; Politeknik ATMI Surakarta</p>
-    <p style="margin-top:6px;">Login sebagai {st.user.email}</p>
+    <p style="margin-top:6px;">Login sebagai <b>{user_email}</b></p>
 </div>
 """, unsafe_allow_html=True)
 
+# 5. Menu Utama Navigasi
 st.markdown('<div class="menu-label">MENU UTAMA</div>', unsafe_allow_html=True)
 st.page_link("pages/1_Input_MKL.py", label="📝  Input MKL", use_container_width=True)
 st.page_link("pages/2_Presensi.py", label="📊  Presensi", use_container_width=True)
 st.page_link("pages/3_Aktivitas.py", label="🗂️  Aktivitas", use_container_width=True)
-st.link_button("📢  Info Mekatro", "https://trmk.atmi.ac.id", use_container_width=True)
+st.link_button("📢  Info Mekatro", "https://atmi.ac.id", use_container_width=True)
+
+# 6. Fungsi Logout Kustom untuk membersihkan session state
+def proses_logout_kustom():
+    st.session_state.clear()       # Menghapus semua data session login
+    st.success("Berhasil logout!") # Menampilkan info sukses singkat
+    st.rerun()                     # Memaksa aplikasi memuat ulang dan kembali ke menu login
 
 st.write("")
-st.button("Logout", on_click=st.logout)
+st.button("Logout", on_click=proses_logout_kustom)
