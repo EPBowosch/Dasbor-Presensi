@@ -2,8 +2,8 @@ import streamlit as st
 import gspread
 from google.oauth2.service_account import Credentials
 
-# 1. Alamat Google Sheets
-SPREADSHEET_URL = "https://google.com"
+# GANTI DENGAN ID GOOGLE SHEETS ANDA (Ambil dari antara /d/ dan /edit pada URL Sheets Anda)
+SPREADSHEET_ID = "1X4ViFRgzWB9ZdLfX_DccnAf1gA7E3sSdS_1pX5ucd2k"
 SCOPES = ["https://googleapis.com"]
 
 @st.cache_resource
@@ -29,9 +29,10 @@ def get_gspread_client():
 
 @st.cache_data(ttl=300)
 def get_sheet_values(sheet_name: str):
-    """Ambil data dari Google Sheets berdasarkan nama sheet."""
+    """Ambil data menggunakan open_by_key agar bebas dari NoValidUrlKeyFound."""
     gc = get_gspread_client()
-    sh = gc.open_by_url(SPREADSHEET_URL)
+    # Menggunakan open_by_key jauh lebih stabil daripada open_by_url
+    sh = gc.open_by_key(SPREADSHEET_ID)
     ws = sh.worksheet(sheet_name)
     return ws.get_all_values()
 
@@ -45,7 +46,7 @@ def require_login():
         st.markdown("<h3 style='text-align:center; padding-top:40px;'>Sistem Informasi Akademik Mekatronika</h3>", unsafe_allow_html=True)
         st.markdown("<p style='text-align:center; color:#6b7280;'>Silakan masukkan Email ATMI Anda.</p>", unsafe_allow_html=True)
         
-        col1, col2, col3 = st.columns([1, 2, 1])
+        col1, col2, col3 = st.columns()
         with col2:
             input_email = st.text_input("Email Resmi ATMI", placeholder="nama@student.atmi.ac.id")
             tombol_login = st.button("Masuk ke Sistem", use_container_width=True)
