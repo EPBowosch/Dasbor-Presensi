@@ -130,7 +130,7 @@ menu_items = [
     {
         "title": "Rekap Aktivitas Saya",
         "sub": "Lihat ringkasan dan riwayat aktivitas",
-        "url": "https://script.google.com/macros/s/AKfycbzNJHp8htG_zFSXtw-cUC00Nw-7scykTHxoO5nTBEHOUUJTqkelLAjZrYSIOqaWemHu/exec",
+        "url": "https://script.google.com/macros/s/AKfycbwqc8oGx6Xp3ERTwncIWM8AOvqyjlrPcwVMh0Lo-98vkGShP4EZcz4mEqeVQG7C0o6N/exec",
         "bg": "#eafaf1",
         "color": "#1a7a4c",
         # ikon grafik batang (Bootstrap Icons: bar-chart-line)
