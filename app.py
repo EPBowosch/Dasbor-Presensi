@@ -1,7 +1,7 @@
 import streamlit as st
 
 st.set_page_config(
-    page_title="SIPMAS",
+    page_title="MECHATRONICS INFORMATION SYSTEM",
     page_icon="https://trmk.atmi.ac.id/wp-content/uploads/2023/06/atmi-logo-300x300.png",
     layout="centered",
     initial_sidebar_state="collapsed",
