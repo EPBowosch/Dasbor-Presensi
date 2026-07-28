@@ -118,36 +118,28 @@ menu_items = [
     {
         "title": "Input MKL",
         "sub": "Catat kegiatan praktikum harian",
-        "url": "https://accounts.google.com/Logout?continue=https://script.google.com/a/macros/atmi.ac.id/s/AKfycbyJGN50wnNe8k0b1u9xj8XZoNXScqxrYVeJ1U4bg-z_JQbo_t-XRzHZyqe5b09YP-Co/exec",
-        "bg": "#e8f0fe",
-        "color": "#1a3c6e",
-        # ikon pensil/dokumen (Bootstrap Icons: pencil-square)
+        ...
+    },
+    {
+        "title": "Perijinan Mahasiswa",
+        "sub": "Ajukan izin terencana, sakit, dan tugas dinas",
+        "url": "https://accounts.google.com/Logout?continue=https://script.google.com/a/macros/atmi.ac.id/s/AKfycby-x1aUypHkd5xt2gfVoiRhBY7cyOWJBj-qW2EAZm3pIQl_zLXlSld02iX9IhmORY-l7Q/exec",
+        "bg": "#fff4e6",
+        "color": "#d97706",
         "icon": '''<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
-            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+            <path d="M10 1.5v1a.5.5 0 0 0 .5.5H11A1.5 1.5 0 0 1 12.5 4.5v9A1.5 1.5 0 0 1 11 15H5A1.5 1.5 0 0 1 3.5 13.5v-9A1.5 1.5 0 0 1 5 3h.5a.5.5 0 0 0 .5-.5v-1A1.5 1.5 0 0 1 7.5 0h1A1.5 1.5 0 0 1 10 1.5zM7.5 1a.5.5 0 0 0-.5.5V2h2v-.5a.5.5 0 0 0-.5-.5h-1z"/>
+            <path d="M10.854 7.146a.5.5 0 0 1 0 .708L8.207 10.5a.5.5 0 0 1-.707 0L6.146 9.146a.5.5 0 1 1 .708-.708l1 1 2.293-2.292a.5.5 0 0 1 .707 0z"/>
         </svg>''',
     },
     {
         "title": "Rekap Aktivitas Saya",
         "sub": "Lihat ringkasan dan riwayat aktivitas",
-        "url": "https://accounts.google.com/Logout?continue=https://script.google.com/a/macros/atmi.ac.id/s/AKfycbwdIJxFrLHp5pLP0wmYe7yqvlCJB6zEERexu7j02qWYmxUYY9vk6xxO2J-VLaQDZzpG/exec",
-        "bg": "#eafaf1",
-        "color": "#1a7a4c",
-        # ikon grafik batang (Bootstrap Icons: bar-chart-line)
-        "icon": '''<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
-            <path d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v13h1.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H2v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V9a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v6h1V2z"/>
-        </svg>''',
+        ...
     },
     {
         "title": "Info Mekatro",
         "sub": "Berita dan pengumuman terbaru",
-        "url": "https://trmk.atmi.ac.id",
-        "bg": "#fdf1e7",
-        "color": "#b5651d",
-        # ikon megaphone (Bootstrap Icons: megaphone)
-        "icon": '''<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
-            <path d="M13 2.5a1.5 1.5 0 0 1 3 0v11a1.5 1.5 0 0 1-3 0v-.214c-2.162-1.241-4.49-1.843-6.912-2.083l.405 2.712A1 1 0 0 1 5.51 15.1h-.548a1 1 0 0 1-.916-.599l-1.85-3.446a.32.32 0 0 0-.32-.192l.014.008a13.5 13.5 0 0 0-.15-.028 2.5 2.5 0 0 1 .217-4.978A61.94 61.94 0 0 0 8.078 5.83c1.986-.399 3.987-.977 5.922-1.727V2.5zm1 0v11a.5.5 0 0 0 1 0v-11a.5.5 0 0 0-1 0zM3.088 6.905a1.5 1.5 0 0 0-.132 2.995z"/>
-        </svg>''',
+        ...
     },
 ]
 
