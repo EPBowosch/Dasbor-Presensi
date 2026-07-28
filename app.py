@@ -7,8 +7,8 @@ st.set_page_config(
     initial_sidebar_state="collapsed",
 )
 
-st.title("Sistem Informasi Praktikum Mekatronika ATMI")
-st.write("dasbor sementara")
+#st.title("Sistem Informasi Praktikum Mekatronika ATMI")
+#st.write("dasbor sementara")
 
 # ---------- CSS ----------
 st.markdown("""
