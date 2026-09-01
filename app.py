@@ -115,20 +115,10 @@ st.markdown("""
 st.markdown('<div class="menu-label">MENU UTAMA</div>', unsafe_allow_html=True)
 
 menu_items = [
-
-   {
-    "title": "MKL Instruktur",
-    "sub": "Pencatatan Minus, Kompen, dan Lembur oleh instruktur",
-    "url": "https://accounts.google.com/Logout?continue=https%3A%2F%2Fscript.google.com%2Fmacros%2Fs%2FAKfycbxJ5omhD-drxNIvYxAklYkp0ktSOxsO6-f0MNBTB_Kop2FjTs5BLR7mZ2sdllB15ys%2Fexec%3Fprompt%3Dselect_account",
-    "bg": "#eafaf0",
-    "color": "#1a7a4c",
-    "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" viewBox=\"0 0 16 16\"><path d=\"M8.5 5.6a.5.5 0 1 0-1 0v2.9h-3a.5.5 0 0 0 0 1H8a.5.5 0 0 0 .5-.5V5.6z\"/><path d=\"M6.5 1A.5.5 0 0 1 7 .5h2a.5.5 0 0 0 0 1v.57c1.36.196 2.594.78 3.584 1.64a.715.715 0 0 1 .012-.013l.354-.354-.354-.354a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 1 1-.707.708l-.353-.354-.354.354a.7.7 0 0 1-.013.012A7 7 0 1 1 7 2.071V1.5a.5.5 0 0 0-.5-.5zM8 3a6 6 0 1 0 .001 12A6 6 0 0 0 8 3z\"/></svg>"
-},
-
     {
         "title": "Input MKL",
         "sub": "Catat kegiatan praktikum harian",
-        "url": "https://accounts.google.com/Logout?continue=https://script.google.com/a/macros/atmi.ac.id/s/AKfycbyJGN50wnNe8k0b1u9xj8XZoNXScqxrYVeJ1U4bg-z_JQbo_t-XRzHZyqe5b09YP-Co/exec",
+        "url": "https://accounts.google.com/AccountChooser?continue=https://script.google.com/a/macros/atmi.ac.id/s/AKfycbyJGN50wnNe8k0b1u9xj8XZoNXScqxrYVeJ1U4bg-z_JQbo_t-XRzHZyqe5b09YP-Co/exec",
         "bg": "#e8f0fe",
         "color": "#1a3c6e",
         # ikon pensil/dokumen (Bootstrap Icons: pencil-square)
@@ -137,11 +127,22 @@ menu_items = [
             <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
         </svg>''',
     },
-    
+    {
+        "title": "MKL Instruktur",
+        "sub": "Pencatatan Minus, Kompen, dan Lembur oleh instruktur",
+        "url": "https://accounts.google.com/AccountChooser?continue=https://script.google.com/a/macros/atmi.ac.id/s/AKfycbyjhCOW6svsWOtVkjtL3a1kqC2lPzQ7b8D9TMnR-LHNrAgirbwTtJEI7QzbKguuS7NJ/exec",
+        "bg": "#eafaf0",
+        "color": "#1a7a4c",
+        # ikon jam/stopwatch (Bootstrap Icons: stopwatch)
+        "icon": '''<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8.5 5.6a.5.5 0 1 0-1 0v2.9h-3a.5.5 0 0 0 0 1H8a.5.5 0 0 0 .5-.5V5.6z"/>
+            <path d="M6.5 1A.5.5 0 0 1 7 .5h2a.5.5 0 0 1 0 1v.57c1.36.196 2.594.78 3.584 1.64a.715.715 0 0 1 .012-.013l.354-.354-.354-.353a.5.5 0 1 1 .707-.708l1.414 1.415a.5.5 0 1 1-.707.707l-.353-.354-.354.354a.7.7 0 0 1-.013.012A7 7 0 1 1 7 2.071V1.5a.5.5 0 0 1-.5-.5zM8 3a6 6 0 1 0 .001 12A6 6 0 0 0 8 3z"/>
+        </svg>''',
+    },
     {
         "title": "Perijinan Mahasiswa",
         "sub": "Ajukan izin terencana, sakit, dan tugas dinas",
-        "url": "https://accounts.google.com/Logout?continue=https://script.google.com/a/macros/atmi.ac.id/s/AKfycby-x1aUypHkd5xt2gfVoiRhBY7cyOWJBj-qW2EAZm3pIQl_zLXlSld02iX9IhmORY-l7Q/exec",
+        "url": "https://accounts.google.com/AccountChooser?continue=https://script.google.com/a/macros/atmi.ac.id/s/AKfycby-x1aUypHkd5xt2gfVoiRhBY7cyOWJBj-qW2EAZm3pIQl_zLXlSld02iX9IhmORY-l7Q/exec",
         "bg": "#fff4e6",
         "color": "#d97706",
         "icon": '''<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
@@ -152,7 +153,7 @@ menu_items = [
     {
         "title": "Rekap Aktivitas Saya",
         "sub": "Lihat ringkasan dan riwayat aktivitas",
-        "url": "https://accounts.google.com/Logout?continue=https://script.google.com/a/macros/atmi.ac.id/s/AKfycbwdIJxFrLHp5pLP0wmYe7yqvlCJB6zEERexu7j02qWYmxUYY9vk6xxO2J-VLaQDZzpG/exec",
+        "url": "https://accounts.google.com/AccountChooser?continue=https://script.google.com/a/macros/atmi.ac.id/s/AKfycbwdIJxFrLHp5pLP0wmYe7yqvlCJB6zEERexu7j02qWYmxUYY9vk6xxO2J-VLaQDZzpG/exec",
         "bg": "#eafaf1",
         "color": "#1a7a4c",
         # ikon grafik batang (Bootstrap Icons: bar-chart-line)
