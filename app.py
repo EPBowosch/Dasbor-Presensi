@@ -99,6 +99,70 @@ st.markdown("""
         flex-shrink: 0;
         color: #c2c9d6;
     }
+
+    /* ---- Container MKL dengan 2 tombol proporsional ---- */
+    .mkl-container {
+        background-color: white;
+        border: 1px solid #e2e6ed;
+        border-radius: 14px;
+        padding: 18px 16px;
+        margin-bottom: 18px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        text-align: center;
+    }
+    .mkl-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: #1a3c6e;
+        margin: 0 0 4px 0;
+    }
+    .mkl-sub {
+        font-size: 12px;
+        color: #8792a2;
+        margin: 0 0 14px 0;
+    }
+    .mkl-buttons {
+        display: flex;
+        gap: 10px;
+    }
+    .mkl-btn {
+        flex: 1 1 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        padding: 14px 8px;
+        border-radius: 12px;
+        text-decoration: none;
+        font-size: 13.5px;
+        font-weight: 700;
+        transition: all 0.15s ease;
+        border: 1px solid transparent;
+    }
+    .mkl-btn:hover {
+        transform: translateY(-1px);
+    }
+    .mkl-btn svg {
+        width: 22px;
+        height: 22px;
+    }
+    .mkl-btn.mahasiswa {
+        background-color: #e8f0fe;
+        color: #1a3c6e;
+    }
+    .mkl-btn.mahasiswa:hover {
+        border-color: #1a3c6e;
+        box-shadow: 0 2px 8px rgba(26,60,110,0.15);
+    }
+    .mkl-btn.instruktur {
+        background-color: #eafaf0;
+        color: #1a7a4c;
+    }
+    .mkl-btn.instruktur:hover {
+        border-color: #1a7a4c;
+        box-shadow: 0 2px 8px rgba(26,122,76,0.15);
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -111,34 +175,39 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
+# ---------- CONTAINER MKL (2 TOMBOL) ----------
+st.markdown("""
+<div class="mkl-container">
+    <p class="mkl-title">Pencatatan Minus, Kompen, dan Lembur (MKL)</p>
+    <p class="mkl-sub">Pilih peran Anda untuk melanjutkan</p>
+    <div class="mkl-buttons">
+        <a href="https://accounts.google.com/AccountChooser?continue=https://script.google.com/a/macros/atmi.ac.id/s/AKfycbyJGN50wnNe8k0b1u9xj8XZoNXScqxrYVeJ1U4bg-z_JQbo_t-XRzHZyqe5b09YP-Co/exec" target="_blank" class="mkl-btn mahasiswa">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664z"/>
+            </svg>
+            Sebagai Mahasiswa
+        </a>
+        <a href="https://accounts.google.com/AccountChooser?continue=https://script.google.com/a/macros/atmi.ac.id/s/AKfycbyjhCOW6svsWOtVkjtL3a1kqC2lPzQ7b8D9TMnR-LHNrAgirbwTtJEI7QzbKguuS7NJ/exec" target="_blank" class="mkl-btn instruktur">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                <path d="M8 9.2C8 6.6 9.8 4.6 12 4.6s4 2 4 4.6" fill="currentColor" stroke="none" opacity="0.15"/>
+                <path d="M8 9.2C8 6.6 9.8 4.6 12 4.6s4 2 4 4.6"/>
+                <path d="M6.6 9.2h10.8"/>
+                <path d="M6.6 9.2v1.3a1 1 0 0 0 1 1h8.8a1 1 0 0 0 1-1V9.2"/>
+                <path d="M12 4.6V3.3"/>
+                <path d="M10.6 3.3h2.8"/>
+                <circle cx="12" cy="12.3" r="1" fill="currentColor" stroke="none"/>
+                <path d="M6.5 20c0-3 2.5-5 5.5-5s5.5 2 5.5 5"/>
+            </svg>
+            Sebagai Instruktur
+        </a>
+    </div>
+</div>
+""", unsafe_allow_html=True)
+
 # ---------- MENU ----------
 st.markdown('<div class="menu-label">MENU UTAMA</div>', unsafe_allow_html=True)
 
 menu_items = [
-    {
-        "title": "Input MKL",
-        "sub": "Catat kegiatan praktikum harian",
-        "url": "https://accounts.google.com/AccountChooser?continue=https://script.google.com/a/macros/atmi.ac.id/s/AKfycbyJGN50wnNe8k0b1u9xj8XZoNXScqxrYVeJ1U4bg-z_JQbo_t-XRzHZyqe5b09YP-Co/exec",
-        "bg": "#e8f0fe",
-        "color": "#1a3c6e",
-        # ikon pensil/dokumen (Bootstrap Icons: pencil-square)
-        "icon": '''<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
-            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-        </svg>''',
-    },
-    {
-        "title": "MKL Instruktur",
-        "sub": "Pencatatan Minus, Kompen, dan Lembur oleh instruktur",
-        "url": "https://accounts.google.com/AccountChooser?continue=https://script.google.com/a/macros/atmi.ac.id/s/AKfycbyjhCOW6svsWOtVkjtL3a1kqC2lPzQ7b8D9TMnR-LHNrAgirbwTtJEI7QzbKguuS7NJ/exec",
-        "bg": "#eafaf0",
-        "color": "#1a7a4c",
-        # ikon jam/stopwatch (Bootstrap Icons: stopwatch)
-        "icon": '''<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
-            <path d="M8.5 5.6a.5.5 0 1 0-1 0v2.9h-3a.5.5 0 0 0 0 1H8a.5.5 0 0 0 .5-.5V5.6z"/>
-            <path d="M6.5 1A.5.5 0 0 1 7 .5h2a.5.5 0 0 1 0 1v.57c1.36.196 2.594.78 3.584 1.64a.715.715 0 0 1 .012-.013l.354-.354-.354-.353a.5.5 0 1 1 .707-.708l1.414 1.415a.5.5 0 1 1-.707.707l-.353-.354-.354.354a.7.7 0 0 1-.013.012A7 7 0 1 1 7 2.071V1.5a.5.5 0 0 1-.5-.5zM8 3a6 6 0 1 0 .001 12A6 6 0 0 0 8 3z"/>
-        </svg>''',
-    },
     {
         "title": "Perijinan Mahasiswa",
         "sub": "Ajukan izin terencana, sakit, dan tugas dinas",
