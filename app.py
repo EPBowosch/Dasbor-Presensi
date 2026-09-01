@@ -117,12 +117,16 @@ st.markdown('<div class="menu-label">MENU UTAMA</div>', unsafe_allow_html=True)
 menu_items = [
 
     {
-    "title": "MKL Instruktur",
-    "sub": "Pencatatan Minus, Kompen, dan Lembur oleh instruktur",
-    "url": "https://script.google.com/macros/s/AKfycbxJ5omhD-drxNIvYxAklYkp0ktSOxsO6-f0MNBTB_Kop2FjTs5BLR7mZ2sdllB15ys/exec?prompt=select_account",
-    "bg": "#eafaf0",
-    "color": "#1a7a4c",
-    "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" viewBox=\"0 0 16 16\"><path d=\"M8.5 5.6a.5.5 0 1 0-1 0v2.9h-3a.5.5 0 0 0 0 1H8a.5.5 0 0 0 .5-.5V5.6z\"/><path d=\"M6.5 1A.5.5 0 0 1 7 .5h2a.5.5 0 0 1 0 1v.57c1.36.196 2.594.78 3.584 1.64a.715.715 0 0 1 .012-.013l.354-.354-.354-.353a.5.5 0 1 1 .707-.708l1.414 1.415a.5.5 0 1 1-.707.707l-.353-.354-.354.354a.7.7 0 0 1-.013.012A7 7 0 1 1 7 2.071V1.5a.5.5 0 0 1-.5-.5zM8 3a6 6 0 1 0 .001 12A6 6 0 0 0 8 3z\"/></svg>"
+    "title": "Input MKL",
+    "sub": "Catat kegiatan praktikum harian",
+    "url": "https://accounts.google.com/AccountChooser?continue=https://script.google.com/a/macros/atmi.ac.id/s/AKfycbyJGN50wnNe8k0b1u9xj8XZoNXScqxrYVeJ1U4bg-z_JQbo_t-XRzHZyqe5b09YP-Co/exec",
+    "bg": "#e8f0fe",
+    "color": "#1a3c6e",
+    # ikon pensil/dokumen (Bootstrap Icons: pencil-square)
+    "icon": '''<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+        <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+    </svg>''',
 },
     {
         "title": "Input MKL",
