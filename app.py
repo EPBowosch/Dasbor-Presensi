@@ -119,7 +119,7 @@ menu_items = [
     {
         "title": "MKL Instruktur",
         "sub": "Pencatatan Minus, Kompen, dan Lembur oleh instruktur",
-        "url": "https://script.google.com/a/macros/atmi.ac.id/s/AKfycbxZV2QiUZGxUNOa-2FJ5jGdv5sW7NXVEW-RIzzd9FdgWecl5FlETIH3Z_T8FeOJhJ4E/exec",
+        "url": "https://accounts.google.com/Logout?continue=https://script.google.com/a/macros/atmi.ac.id/s/AKfycbyxsgGbRRHn7GV-d-hqcIHV3LAD4bj5QBrAqRziurDGM9VzAaAGWzvqD7D8TPdYmdtp/exec",
         "bg": "#eafaf0",
         "color": "#1a7a4c",
         # ikon jam/stopwatch (Bootstrap Icons: stopwatch)
