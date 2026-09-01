@@ -189,14 +189,14 @@ st.markdown("""
         </a>
         <a href="https://accounts.google.com/AccountChooser?continue=https://script.google.com/a/macros/atmi.ac.id/s/AKfycbyjhCOW6svsWOtVkjtL3a1kqC2lPzQ7b8D9TMnR-LHNrAgirbwTtJEI7QzbKguuS7NJ/exec" target="_blank" class="mkl-btn instruktur">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                <path d="M8 9.2C8 6.6 9.8 4.6 12 4.6s4 2 4 4.6" fill="currentColor" stroke="none" opacity="0.15"/>
-                <path d="M8 9.2C8 6.6 9.8 4.6 12 4.6s4 2 4 4.6"/>
-                <path d="M6.6 9.2h10.8"/>
-                <path d="M6.6 9.2v1.3a1 1 0 0 0 1 1h8.8a1 1 0 0 0 1-1V9.2"/>
-                <path d="M12 4.6V3.3"/>
-                <path d="M10.6 3.3h2.8"/>
-                <circle cx="12" cy="12.3" r="1" fill="currentColor" stroke="none"/>
-                <path d="M6.5 20c0-3 2.5-5 5.5-5s5.5 2 5.5 5"/>
+                <circle cx="12" cy="8" r="3.4" fill="currentColor" stroke="none" opacity="0.15"/>
+                <circle cx="12" cy="8" r="3.4"/>
+                <circle cx="9.7" cy="9.4" r="1.4"/>
+                <circle cx="14.3" cy="9.4" r="1.4"/>
+                <path d="M11.1 9.4h1.8"/>
+                <path d="M8.3 9.1c-.7-.2-1.2-.2-1.7.1"/>
+                <path d="M15.7 9.1c.7-.2 1.2-.2 1.7.1"/>
+                <path d="M6 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/>
             </svg>
             Sebagai Instruktur
         </a>
