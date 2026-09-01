@@ -119,12 +119,11 @@ menu_items = [
    {
     "title": "MKL Instruktur",
     "sub": "Pencatatan Minus, Kompen, dan Lembur oleh instruktur",
-    "url": "https://script.google.com/macros/s/AKfycbxJ5omhD-drxNIvYxAklYkp0ktSOxsO6-f0MNBTB_Kop2FjTs5BLR7mZ2sdllB15ys/exec?prompt=select_account",
+    "url": "https://accounts.google.com/Logout?continue=https%3A%2F%2Faccounts.google.com%2FServiceLogin%3Fcontinue%3Dhttps%253A%252F%252Fscript.google.com%252Fa%252Fmacros%252Fatmi.ac.id%252Fs%252FAKfycbxsgGbRRHn7GV-d-hqcIHV3LAD4bj5QBrAqRziurDGM9VzAaAGWzvqD7D8TPdYmdtp%252Fexec%26service%3Dwise",
     "bg": "#eafaf0",
     "color": "#1a7a4c",
-    "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" viewBox=\"0 0 16 16\"><path d=\"M8.5 5.6a.5.5 0 1 0-1 0v2.9h-3a.5.5 0 0 0 0 1H8a.5.5 0 0 0 .5-.5V5.6z\"/><path d=\"M6.5 1A.5.5 0 0 1 7 .5h2a.5.5 0 0 1 0 1v.57c1.36.196 2.594.78 3.584 1.64a.715.715 0 0 1 .012-.013l.354-.354-.354-.353a.5.5 0 1 1 .707-.708l1.414 1.415a.5.5 0 1 1-.707.707l-.353-.354-.354.354a.7.7 0 0 1-.013.012A7 7 0 1 1 7 2.071V1.5a.5.5 0 0 1-.5-.5zM8 3a6 6 0 1 0 .001 12A6 6 0 0 0 8 3z\"/></svg>"
+    "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"currentColor\" viewBox=\"0 0 16 16\"><path d=\"M8.5 5.6a.5.5 0 1 0-1 0v2.9h-3a.5.5 0 0 0 0 1H8a.5.5 0 0 0 .5-.5V5.6z\"/><path d=\"M6.5 1A.5.5 0 0 1 7 .5h2a.5.5 0 0 1 0 1v.57c1.36.196 2.594.78 3.584 1.64a.715.715 0 0 1 .012-.013l.354-.354-.354-.353a.5.5 0 1 1 .707-.708l1.414 1.415a.5.5 0 1 1-.707.707l-.353-.354a.7.7 0 0 1-.013.012A7 7 0 1 1 7 2.071V1.5a.5.5 0 0 1-.5-.5zM8 3a6 6 0 1 0 .001 12A6 6 0 0 0 8 3z\"/></svg>"
 },
-
     {
         "title": "Input MKL",
         "sub": "Catat kegiatan praktikum harian",
