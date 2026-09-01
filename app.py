@@ -115,6 +115,19 @@ st.markdown("""
 st.markdown('<div class="menu-label">MENU UTAMA</div>', unsafe_allow_html=True)
 
 menu_items = [
+
+    {
+        "title": "MKL Instruktur",
+        "sub": "Pencatatan Minus, Kompen, dan Lembur oleh instruktur",
+        "url": "https://script.google.com/a/macros/atmi.ac.id/s/AKfycbxZV2QiUZGxUNOa-2FJ5jGdv5sW7NXVEW-RIzzd9FdgWecl5FlETIH3Z_T8FeOJhJ4E/exec",
+        "bg": "#eafaf0",
+        "color": "#1a7a4c",
+        # ikon jam/stopwatch (Bootstrap Icons: stopwatch)
+        "icon": '''<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8.5 5.6a.5.5 0 1 0-1 0v2.9h-3a.5.5 0 0 0 0 1H8a.5.5 0 0 0 .5-.5V5.6z"/>
+            <path d="M6.5 1A.5.5 0 0 1 7 .5h2a.5.5 0 0 1 0 1v.57c1.36.196 2.594.78 3.584 1.64a.715.715 0 0 1 .012-.013l.354-.354-.354-.353a.5.5 0 1 1 .707-.708l1.414 1.415a.5.5 0 1 1-.707.707l-.353-.354-.354.354a.7.7 0 0 1-.013.012A7 7 0 1 1 7 2.071V1.5a.5.5 0 0 1-.5-.5zM8 3a6 6 0 1 0 .001 12A6 6 0 0 0 8 3z"/>
+        </svg>''',
+    },
     {
         "title": "Input MKL",
         "sub": "Catat kegiatan praktikum harian",
@@ -127,6 +140,7 @@ menu_items = [
             <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
         </svg>''',
     },
+    
     {
         "title": "Perijinan Mahasiswa",
         "sub": "Ajukan izin terencana, sakit, dan tugas dinas",
@@ -141,7 +155,6 @@ menu_items = [
     {
         "title": "Rekap Aktivitas Saya",
         "sub": "Lihat ringkasan dan riwayat aktivitas",
-        "url": "https://accounts.google.com/Logout?continue=https://script.google.com/a/macros/atmi.ac.id/s/AKfycbxKybxN1nlYBAGgb1btLXxJm_oqjmpabag__gDJLaBgknphvldsSmRWOg6zfaCVgJLu/exec",
         "url": "https://accounts.google.com/Logout?continue=https://script.google.com/a/macros/atmi.ac.id/s/AKfycbwdIJxFrLHp5pLP0wmYe7yqvlCJB6zEERexu7j02qWYmxUYY9vk6xxO2J-VLaQDZzpG/exec",
         "bg": "#eafaf1",
         "color": "#1a7a4c",
