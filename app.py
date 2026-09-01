@@ -1,17 +1,20 @@
 import streamlit as st
 
 st.set_page_config(
-    page_title="Petunjuk - MECHATRONICS INFORMATION SYSTEM",
+    page_title="MECHATRONICS INFORMATION SYSTEM",
     page_icon="https://trmk.atmi.ac.id/wp-content/uploads/2023/06/atmi-logo-300x300.png",
     layout="centered",
     initial_sidebar_state="collapsed",
 )
 
-# ---------- CSS (konsisten dengan halaman utama) ----------
+#st.title("Sistem Informasi Praktikum Mekatronika ATMI")
+#st.write("dasbor sementara")
+
+# ---------- CSS ----------
 st.markdown("""
 <style>
     #MainMenu, footer, header {visibility: hidden;}
-    .block-container {padding-top: 1.5rem; padding-bottom: 2rem; max-width: 560px;}
+    .block-container {padding-top: 1.5rem; padding-bottom: 2rem; max-width: 480px;}
 
     .header-card {
         background: linear-gradient(135deg, #1a3c6e 0%, #0d1f3c 100%);
@@ -20,6 +23,10 @@ st.markdown("""
         text-align: center;
         color: white;
         margin-bottom: 22px;
+    }
+    .header-card img {
+        width: 64px;
+        margin-bottom: 10px;
     }
     .header-card h1 {
         font-size: 17px;
@@ -33,79 +40,64 @@ st.markdown("""
         margin: 0;
     }
 
-    .back-link {
-        display: inline-block;
-        margin-bottom: 16px;
-        font-size: 13px;
-        color: #6b7280;
-        text-decoration: none;
-    }
-
-    .section-label {
+    .menu-label {
         font-size: 13px;
         font-weight: 600;
         color: #6b7280;
-        margin: 22px 2px 10px 2px;
+        margin: 4px 2px 10px 2px;
         letter-spacing: 0.3px;
-        text-transform: uppercase;
     }
 
-    .problem-card {
-        background: #fdecea;
-        border: 1px solid #f5c6c2;
-        border-radius: 14px;
-        padding: 16px 18px;
-        margin-bottom: 16px;
-    }
-    .problem-card b { color: #c0392b; }
-
-    .step-card {
-        background: white;
+    /* ---- Kartu menu dengan ikon ---- */
+    .menu-card {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        width: 100%;
+        background-color: white;
         border: 1px solid #e2e6ed;
         border-radius: 14px;
-        padding: 16px 18px;
-        margin-bottom: 12px;
+        padding: 14px 16px;
+        margin-bottom: 10px;
         box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        text-decoration: none;
+        transition: all 0.15s ease;
     }
-    .step-num {
-        display: inline-flex;
+    .menu-card:hover {
+        border-color: #1a3c6e;
+        box-shadow: 0 2px 10px rgba(26,60,110,0.15);
+        transform: translateY(-1px);
+    }
+    .menu-icon {
+        flex-shrink: 0;
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        display: flex;
         align-items: center;
         justify-content: center;
-        width: 26px;
-        height: 26px;
-        border-radius: 50%;
-        background: #1a3c6e;
-        color: white;
-        font-size: 13px;
-        font-weight: 700;
-        margin-right: 8px;
-        flex-shrink: 0;
     }
-    .step-title {
+    .menu-icon svg {
+        width: 22px;
+        height: 22px;
+    }
+    .menu-text {
+        flex-grow: 1;
+    }
+    .menu-text .menu-title {
         font-size: 15px;
         font-weight: 600;
         color: #1a3c6e;
-        display: flex;
-        align-items: center;
-        margin-bottom: 6px;
+        margin: 0;
     }
-    .step-desc {
-        font-size: 13.5px;
-        color: #4b5563;
-        line-height: 1.5;
-        margin-left: 34px;
+    .menu-text .menu-sub {
+        font-size: 12px;
+        color: #8792a2;
+        margin: 1px 0 0 0;
     }
-
-    .note-card {
-        background: #fff8e6;
-        border: 1px solid #f2dca0;
-        border-radius: 12px;
-        padding: 14px 16px;
-        font-size: 13px;
-        color: #7a5b00;
-        margin-top: 6px;
-        margin-bottom: 20px;
-        line-height: 1.5;
+    .menu-arrow {
+        flex-shrink: 0;
+        color: #c2c9d6;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -113,100 +105,103 @@ st.markdown("""
 # ---------- HEADER ----------
 st.markdown("""
 <div class="header-card">
-    <h1>Petunjuk Mengatasi Halaman Tidak Bisa Dibuka</h1>
-    <p>Rumpun Prodi Mekatronika &middot; Politeknik ATMI Surakarta</p>
+    <img src="https://trmk.atmi.ac.id/wp-content/uploads/2023/06/logoatmiWARNA.png" />
+    <h1>Rumpun Prodi Mekatronika</h1>
+    <p>&middot; Politeknik ATMI Surakarta</p>
 </div>
 """, unsafe_allow_html=True)
 
-st.markdown('<a class="back-link" href="/" target="_self">&larr; Kembali ke menu utama</a>', unsafe_allow_html=True)
+# ---------- MENU ----------
+st.markdown('<div class="menu-label">MENU UTAMA</div>', unsafe_allow_html=True)
 
-# ---------- MASALAH ----------
-st.markdown("""
-<div class="problem-card">
-    <b>Gejala:</b> Setelah klik menu (misalnya "MKL Instruktur" atau "Rekap Aktivitas"),
-    muncul pesan <i>"Tidak dapat mendeteksi akun Google Anda"</i> atau halaman gagal
-    terbuka &mdash; padahal HP sudah login dengan akun email atmi (<b>@atmi.ac.id</b>).
-    Ini paling sering terjadi di HP (Chrome Android), jarang di laptop/desktop.
-</div>
-""", unsafe_allow_html=True)
+menu_items = [
+    {
+        "title": "Input MKL",
+        "sub": "Catat kegiatan praktikum harian",
+        "url": "https://accounts.google.com/AccountChooser?continue=https://script.google.com/a/macros/atmi.ac.id/s/AKfycbyJGN50wnNe8k0b1u9xj8XZoNXScqxrYVeJ1U4bg-z_JQbo_t-XRzHZyqe5b09YP-Co/exec",
+        "bg": "#e8f0fe",
+        "color": "#1a3c6e",
+        # ikon pensil/dokumen (Bootstrap Icons: pencil-square)
+        "icon": '''<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+            <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+        </svg>''',
+    },
+    {
+        "title": "MKL Instruktur",
+        "sub": "Pencatatan Minus, Kompen, dan Lembur oleh instruktur",
+        "url": "https://accounts.google.com/AccountChooser?continue=https://script.google.com/a/macros/atmi.ac.id/s/AKfycbyjhCOW6svsWOtVkjtL3a1kqC2lPzQ7b8D9TMnR-LHNrAgirbwTtJEI7QzbKguuS7NJ/exec",
+        "bg": "#eafaf0",
+        "color": "#1a7a4c",
+        # ikon jam/stopwatch (Bootstrap Icons: stopwatch)
+        "icon": '''<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8.5 5.6a.5.5 0 1 0-1 0v2.9h-3a.5.5 0 0 0 0 1H8a.5.5 0 0 0 .5-.5V5.6z"/>
+            <path d="M6.5 1A.5.5 0 0 1 7 .5h2a.5.5 0 0 1 0 1v.57c1.36.196 2.594.78 3.584 1.64a.715.715 0 0 1 .012-.013l.354-.354-.354-.353a.5.5 0 1 1 .707-.708l1.414 1.415a.5.5 0 1 1-.707.707l-.353-.354-.354.354a.7.7 0 0 1-.013.012A7 7 0 1 1 7 2.071V1.5a.5.5 0 0 1-.5-.5zM8 3a6 6 0 1 0 .001 12A6 6 0 0 0 8 3z"/>
+        </svg>''',
+    },
+    {
+        "title": "Perijinan Mahasiswa",
+        "sub": "Ajukan izin terencana, sakit, dan tugas dinas",
+        "url": "https://accounts.google.com/AccountChooser?continue=https://script.google.com/a/macros/atmi.ac.id/s/AKfycby-x1aUypHkd5xt2gfVoiRhBY7cyOWJBj-qW2EAZm3pIQl_zLXlSld02iX9IhmORY-l7Q/exec",
+        "bg": "#fff4e6",
+        "color": "#d97706",
+        "icon": '''<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M10 1.5v1a.5.5 0 0 0 .5.5H11A1.5 1.5 0 0 1 12.5 4.5v9A1.5 1.5 0 0 1 11 15H5A1.5 1.5 0 0 1 3.5 13.5v-9A1.5 1.5 0 0 1 5 3h.5a.5.5 0 0 0 .5-.5v-1A1.5 1.5 0 0 1 7.5 0h1A1.5 1.5 0 0 1 10 1.5zM7.5 1a.5.5 0 0 0-.5.5V2h2v-.5a.5.5 0 0 0-.5-.5h-1z"/>
+            <path d="M10.854 7.146a.5.5 0 0 1 0 .708L8.207 10.5a.5.5 0 0 1-.707 0L6.146 9.146a.5.5 0 1 1 .708-.708l1 1 2.293-2.292a.5.5 0 0 1 .707 0z"/>
+        </svg>''',
+    },
+    {
+        "title": "Rekap Aktivitas Saya",
+        "sub": "Lihat ringkasan dan riwayat aktivitas",
+        "url": "https://accounts.google.com/AccountChooser?continue=https://script.google.com/a/macros/atmi.ac.id/s/AKfycbwdIJxFrLHp5pLP0wmYe7yqvlCJB6zEERexu7j02qWYmxUYY9vk6xxO2J-VLaQDZzpG/exec",
+        "bg": "#eafaf1",
+        "color": "#1a7a4c",
+        # ikon grafik batang (Bootstrap Icons: bar-chart-line)
+        "icon": '''<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v13h1.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H2v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V9a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v6h1V2z"/>
+        </svg>''',
+    },
+    {
+        "title": "Info Mekatro",
+        "sub": "Berita dan pengumuman terbaru",
+        "url": "https://trmk.atmi.ac.id",
+        "bg": "#fdf1e7",
+        "color": "#b5651d",
+        # ikon megaphone (Bootstrap Icons: megaphone)
+        "icon": '''<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M13 2.5a1.5 1.5 0 0 1 3 0v11a1.5 1.5 0 0 1-3 0v-.214c-2.162-1.241-4.49-1.843-6.912-2.083l.405 2.712A1 1 0 0 1 5.51 15.1h-.548a1 1 0 0 1-.916-.599l-1.85-3.446a.32.32 0 0 0-.32-.192l.014.008a13.5 13.5 0 0 0-.15-.028 2.5 2.5 0 0 1 .217-4.978A61.94 61.94 0 0 0 8.078 5.83c1.986-.399 3.987-.977 5.922-1.727V2.5zm1 0v11a.5.5 0 0 0 1 0v-11a.5.5 0 0 0-1 0zM3.088 6.905a1.5 1.5 0 0 0-.132 2.995z"/>
+        </svg>''',
+    },
+    {
+        "title": "Petunjuk",
+        "sub": "Halaman tidak bisa dibuka? Coba langkah ini",
+        "url": "/Petunjuk",
+        "target": "_self",
+        "bg": "#f1f2f6",
+        "color": "#57606f",
+        # ikon tanda tanya (Bootstrap Icons: question-circle)
+        "icon": '''<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
+            <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
+        </svg>''',
+    },
+]
 
-st.markdown("""
-<div class="note-card">
-    Penyebabnya bukan akun email atmi kamu salah &mdash; ini soal setelan cookie
-    di browser HP. Google membuka halaman ini lewat sebuah "jendela tersembunyi"
-    di dalam halaman (disebut iframe), dan sebagian HP memblokir Google membaca
-    sesi login di jendela tersembunyi itu. Ikuti langkah di bawah sesuai urutan.
-</div>
-""", unsafe_allow_html=True)
-
-# ---------- LANGKAH 1 ----------
-st.markdown('<div class="section-label">Coba dulu &mdash; paling cepat</div>', unsafe_allow_html=True)
-
-st.markdown("""
-<div class="step-card">
-    <div class="step-title"><span class="step-num">1</span>Pastikan akun email atmi jadi akun utama Chrome</div>
-    <div class="step-desc">
-        Buka Chrome &rarr; ketuk titik tiga (pojok kanan atas) &rarr; lihat foto/nama
-        akun yang tertera di bagian atas menu. Kalau bukan akun email atmi
-        (<b>...@atmi.ac.id</b>) yang aktif di situ, ketuk foto akun tersebut lalu
-        pilih atau tambahkan akun email atmi, dan jadikan itu akun utama Chrome
-        di HP tersebut. Setelah itu buka lagi menunya &mdash; biasanya langsung berhasil.
-    </div>
-</div>
-
-<div class="step-card">
-    <div class="step-title"><span class="step-num">2</span>Tutup dan buka ulang Chrome</div>
-    <div class="step-desc">
-        Kadang sesi login lama masih "menyangkut". Tutup Chrome sepenuhnya
-        (bukan cuma pindah aplikasi), buka lagi, lalu coba menu yang sama.
-    </div>
-</div>
-""", unsafe_allow_html=True)
-
-# ---------- LANGKAH 2 ----------
-st.markdown('<div class="section-label">Kalau langkah 1 belum berhasil</div>', unsafe_allow_html=True)
-
-st.markdown("""
-<div class="step-card">
-    <div class="step-title"><span class="step-num">3</span>Pastikan tidak sedang di mode Incognito</div>
-    <div class="step-desc">
-        Tab Penyamaran/Incognito di Chrome selalu memblokir sesi seperti ini.
-        Pastikan dibuka di tab biasa.
-    </div>
-</div>
-
-<div class="step-card">
-    <div class="step-title"><span class="step-num">4</span>Buka lewat Chrome, bukan aplikasi lain</div>
-    <div class="step-desc">
-        Kalau link diklik dari dalam WhatsApp, Gmail, atau aplikasi lain, ketuk
-        titik tiga di kanan atas layar tersebut lalu pilih "Buka di Chrome" /
-        "Open in browser" dulu sebelum mengakses menu.
-    </div>
-</div>
-
-<div class="step-card">
-    <div class="step-title"><span class="step-num">5</span>Izinkan cookie pihak ketiga untuk domain Google</div>
-    <div class="step-desc">
-        Buka <code>chrome://settings/privacy</code> di Chrome HP &rarr; cari
-        "Third-party cookies" / "Cookie pihak ketiga" &rarr; pastikan tidak
-        di-set "Blokir semua cookie pihak ketiga". Kalau memungkinkan, izinkan
-        khusus untuk *.google.com dan *.googleusercontent.com.
-    </div>
-</div>
-""", unsafe_allow_html=True)
-
-# ---------- MASIH GAGAL ----------
-st.markdown('<div class="section-label">Masih belum bisa juga?</div>', unsafe_allow_html=True)
-
-st.markdown("""
-<div class="step-card">
-    <div class="step-title"><span class="step-num">6</span>Hubungi admin sistem</div>
-    <div class="step-desc">
-        Kirim screenshot pesan errornya, sebutkan tipe HP dan versi Chrome
-        (Chrome &rarr; titik tiga &rarr; Settings &rarr; About Chrome), serta menu
-        mana yang gagal dibuka. Ini membantu admin melacak penyebabnya lebih cepat.
-    </div>
-</div>
-""", unsafe_allow_html=True)
-
-st.markdown('<a class="back-link" href="/" target="_self">&larr; Kembali ke menu utama</a>', unsafe_allow_html=True)
+for item in menu_items:
+    target = item.get("target", "_blank")
+    st.markdown(f"""
+    <a href="{item['url']}" target="{target}" class="menu-card">
+        <div class="menu-icon" style="background-color:{item['bg']}; color:{item['color']};">
+            {item['icon']}
+        </div>
+        <div class="menu-text">
+            <p class="menu-title">{item['title']}</p>
+            <p class="menu-sub">{item['sub']}</p>
+        </div>
+        <div class="menu-arrow">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+            </svg>
+        </div>
+    </a>
+    """, unsafe_allow_html=True)
