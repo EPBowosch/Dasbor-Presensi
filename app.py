@@ -1,4 +1,5 @@
 import streamlit as st
+import streamlit.components.v1 as components
 
 st.set_page_config(
     page_title="MECHATRONICS INFORMATION SYSTEM",
@@ -166,38 +167,57 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ---------- INJEKSI JAVASCRIPT GLOBAL UNTUK FALLBACK ----------
-st.components.v1.html("""
+# Menggunakan penanganan klik yang aman dari masalah iframe sandboxing Streamlit
+components.html("""
 <script>
-    window.parent.bukaDenganFallback = function(targetUrl, fallbackUrl) {
-        if (!targetUrl.includes('script.google.com')) {
-            window.open(targetUrl, '_blank');
+    window.parent.document.addEventListener('click', function(e) {
+        var card = e.target.closest('.mkl-btn, .menu-card');
+        if (!card) return;
+        
+        var targetUrl = card.getAttribute('data-url');
+        var fallbackUrl = card.getAttribute('data-fallback');
+        if (!targetUrl) return;
+        
+        e.preventDefault();
+        e.stopPropagation();
+        
+        if (targetUrl.startsWith('/') || !targetUrl.includes('script.google.com')) {
+            window.parent.window.location.href = targetUrl;
             return;
         }
-
-        let isResolved = false;
-        const timeout = setTimeout(() => {
+        
+        var targetWindow = window.parent.window.open('about:blank', '_blank');
+        if(!targetWindow) {
+            alert('Mohon izinkan pop-up pada peramban Anda untuk membuka menu.');
+            return;
+        }
+        
+        var isResolved = false;
+        var timeout = setTimeout(function() {
             if (!isResolved) {
                 isResolved = true;
-                window.open(fallbackUrl, '_self');
+                targetWindow.close();
+                window.parent.window.location.href = fallbackUrl;
             }
         }, 4500);
-
+        
         fetch(targetUrl, { mode: 'no-cors', cache: 'no-store' })
-            .then(() => {
+            .then(function() {
                 if (!isResolved) {
                     isResolved = true;
                     clearTimeout(timeout);
-                    window.open(targetUrl, '_blank');
+                    targetWindow.location.href = targetUrl;
                 }
             })
-            .catch(() => {
+            .catch(function() {
                 if (!isResolved) {
                     isResolved = true;
                     clearTimeout(timeout);
-                    window.open(fallbackUrl, '_self');
+                    targetWindow.close();
+                    window.parent.window.location.href = fallbackUrl;
                 }
             });
-    }
+    }, true);
 </script>
 """, height=0, width=0)
 
@@ -221,13 +241,13 @@ st.markdown(f"""
     <p class="mkl-title">Pencatatan Minus, Kompen, dan Lembur (MKL)</p>
     <p class="mkl-sub">Pilih peran Anda untuk melanjutkan</p>
     <div class="mkl-buttons">
-        <div onclick="window.parent.bukaDenganFallback('{url_mkl_mhs}', '{FALLBACK_PAGE}')" class="mkl-btn mahasiswa">
+        <div data-url="{url_mkl_mhs}" data-fallback="{FALLBACK_PAGE}" class="mkl-btn mahasiswa">
             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
                 <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664z"/>
             </svg>
             Sebagai Mahasiswa
         </div>
-        <div onclick="window.parent.bukaDenganFallback('{url_mkl_instruktur}', '{FALLBACK_PAGE}')" class="mkl-btn instruktur">
+        <div data-url="{url_mkl_instruktur}" data-fallback="{FALLBACK_PAGE}" class="mkl-btn instruktur">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                 <circle cx="12" cy="8" r="3.4" fill="currentColor" stroke="none" opacity="0.15"/>
                 <circle cx="12" cy="8" r="3.4"/>
@@ -283,7 +303,6 @@ menu_items = [
         "title": "Petunjuk",
         "sub": "Halaman tidak bisa dibuka? Coba langkah ini",
         "url": "/Petunjuk",
-        "target": "_self",
         "bg": "#f1f2f6",
         "color": "#57606f",
         "icon": '''<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
@@ -294,39 +313,19 @@ menu_items = [
 ]
 
 for item in menu_items:
-    target = item.get("target", "_blank")
-    
-    if target == "_self":
-        st.markdown(f"""
-        <a href="{item['url']}" target="_self" class="menu-card">
-            <div class="menu-icon" style="background-color:{item['bg']}; color:{item['color']};">
-                {item['icon']}
-            </div>
-            <div class="menu-text">
-                <p class="menu-title">{item['title']}</p>
-                <p class="menu-sub">{item['sub']}</p>
-            </div>
-            <div class="menu-arrow">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-                </svg>
-            </div>
-        </a>
-        """, unsafe_allow_html=True)
-    else:
-        st.markdown(f"""
-        <div onclick="window.parent.bukaDenganFallback('{item['url']}', '{FALLBACK_PAGE}')" class="menu-card">
-            <div class="menu-icon" style="background-color:{item['bg']}; color:{item['color']};">
-                {item['icon']}
-            </div>
-            <div class="menu-text">
-                <p class="menu-title">{item['title']}</p>
-                <p class="menu-sub">{item['sub']}</p>
-            </div>
-            <div class="menu-arrow">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-                </svg>
-            </div>
+    st.markdown(f"""
+    <div data-url="{item['url']}" data-fallback="{FALLBACK_PAGE}" class="menu-card">
+        <div class="menu-icon" style="background-color:{item['bg']}; color:{item['color']};">
+            {item['icon']}
         </div>
-        """, unsafe_allow_html=True)
+        <div class="menu-text">
+            <p class="menu-title">{item['title']}</p>
+            <p class="menu-sub">{item['sub']}</p>
+        </div>
+        <div class="menu-arrow">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+            </svg>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
