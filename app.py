@@ -7,9 +7,6 @@ st.set_page_config(
     initial_sidebar_state="collapsed",
 )
 
-#st.title("Sistem Informasi Praktikum Mekatronika ATMI")
-#st.write("dasbor sementara")
-
 # ---------- CSS ----------
 st.markdown("""
 <style>
@@ -62,6 +59,7 @@ st.markdown("""
         box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         text-decoration: none;
         transition: all 0.15s ease;
+        cursor: pointer;
     }
     .menu-card:hover {
         border-color: #1a3c6e;
@@ -139,6 +137,7 @@ st.markdown("""
         font-weight: 700;
         transition: all 0.15s ease;
         border: 1px solid transparent;
+        cursor: pointer;
     }
     .mkl-btn:hover {
         transform: translateY(-1px);
@@ -166,6 +165,42 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+# ---------- INJEKSI JAVASCRIPT GLOBAL UNTUK FALLBACK ----------
+st.components.v1.html("""
+<script>
+    window.parent.bukaDenganFallback = function(targetUrl, fallbackUrl) {
+        if (!targetUrl.includes('script.google.com')) {
+            window.open(targetUrl, '_blank');
+            return;
+        }
+
+        let isResolved = false;
+        const timeout = setTimeout(() => {
+            if (!isResolved) {
+                isResolved = true;
+                window.open(fallbackUrl, '_self');
+            }
+        }, 4500);
+
+        fetch(targetUrl, { mode: 'no-cors', cache: 'no-store' })
+            .then(() => {
+                if (!isResolved) {
+                    isResolved = true;
+                    clearTimeout(timeout);
+                    window.open(targetUrl, '_blank');
+                }
+            })
+            .catch(() => {
+                if (!isResolved) {
+                    isResolved = true;
+                    clearTimeout(timeout);
+                    window.open(fallbackUrl, '_self');
+                }
+            });
+    }
+</script>
+""", height=0, width=0)
+
 # ---------- HEADER ----------
 st.markdown("""
 <div class="header-card">
@@ -175,19 +210,24 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
+FALLBACK_PAGE = "/Petunjuk"
+
 # ---------- CONTAINER MKL (2 TOMBOL) ----------
-st.markdown("""
+url_mkl_mhs = "https://accounts.google.com/AccountChooser?continue=https://script.google.com/a/macros/atmi.ac.id/s/AKfycbyJGN50wnNe8k0b1u9xj8XZoNXScqxrYVeJ1U4bg-z_JQbo_t-XRzHZyqe5b09YP-Co/exec"
+url_mkl_instruktur = "https://accounts.google.com/AccountChooser?continue=https://script.google.com/a/macros/atmi.ac.id/s/AKfycbyjhCOW6svsWOtVkjtL3a1kqC2lPzQ7b8D9TMnR-LHNrAgirbwTtJEI7QzbKguuS7NJ/exec"
+
+st.markdown(f"""
 <div class="mkl-container">
     <p class="mkl-title">Pencatatan Minus, Kompen, dan Lembur (MKL)</p>
     <p class="mkl-sub">Pilih peran Anda untuk melanjutkan</p>
     <div class="mkl-buttons">
-        <a href="https://accounts.google.com/AccountChooser?continue=https://script.google.com/a/macros/atmi.ac.id/s/AKfycbyJGN50wnNe8k0b1u9xj8XZoNXScqxrYVeJ1U4bg-z_JQbo_t-XRzHZyqe5b09YP-Co/exec" target="_blank" class="mkl-btn mahasiswa">
+        <div onclick="window.parent.bukaDenganFallback('{url_mkl_mhs}', '{FALLBACK_PAGE}')" class="mkl-btn mahasiswa">
             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
                 <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664z"/>
             </svg>
             Sebagai Mahasiswa
-        </a>
-        <a href="https://accounts.google.com/AccountChooser?continue=https://script.google.com/a/macros/atmi.ac.id/s/AKfycbyjhCOW6svsWOtVkjtL3a1kqC2lPzQ7b8D9TMnR-LHNrAgirbwTtJEI7QzbKguuS7NJ/exec" target="_blank" class="mkl-btn instruktur">
+        </div>
+        <div onclick="window.parent.bukaDenganFallback('{url_mkl_instruktur}', '{FALLBACK_PAGE}')" class="mkl-btn instruktur">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
                 <circle cx="12" cy="8" r="3.4" fill="currentColor" stroke="none" opacity="0.15"/>
                 <circle cx="12" cy="8" r="3.4"/>
@@ -199,7 +239,7 @@ st.markdown("""
                 <path d="M6 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/>
             </svg>
             Sebagai Instruktur
-        </a>
+        </div>
     </div>
 </div>
 """, unsafe_allow_html=True)
@@ -210,7 +250,7 @@ st.markdown('<div class="menu-label">MENU UTAMA</div>', unsafe_allow_html=True)
 menu_items = [
     {
         "title": "Perijinan Mahasiswa",
-        "sub": "Ajukan izin terencana, sakit, dan tugas dinas",
+        "sub": "Ajukan izin terencana, sakit, dan tugas luar",
         "url": "https://accounts.google.com/AccountChooser?continue=https://script.google.com/a/macros/atmi.ac.id/s/AKfycby-x1aUypHkd5xt2gfVoiRhBY7cyOWJBj-qW2EAZm3pIQl_zLXlSld02iX9IhmORY-l7Q/exec",
         "bg": "#fff4e6",
         "color": "#d97706",
@@ -222,10 +262,9 @@ menu_items = [
     {
         "title": "Rekap Aktivitas Saya",
         "sub": "Lihat ringkasan dan riwayat aktivitas",
-        "url": "https://accounts.google.com/AccountChooser?continue=https://script.google.com/a/macros/atmi.ac.id/s/AKfycbwdIJxFrLHp5pLP0wmYe7yqvlCJB6zEERexu7j02qWYmxUYY9vk6xxO2J-VLaQDZzpG/exec",
+        "url": "https://accounts.google.com/AccountChooser?continue=https://script.google.com/macros/s/AKfycbxtEoTgpp_yB4sYydJyekv52E_EcDXS1ekaU8EyVFDbLQG7LXNPgNMYm0yhjgdJADdw/exec",
         "bg": "#eafaf1",
         "color": "#1a7a4c",
-        # ikon grafik batang (Bootstrap Icons: bar-chart-line)
         "icon": '''<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
             <path d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v13h1.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H2v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V9a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v6h1V2z"/>
         </svg>''',
@@ -236,7 +275,6 @@ menu_items = [
         "url": "https://trmk.atmi.ac.id",
         "bg": "#fdf1e7",
         "color": "#b5651d",
-        # ikon megaphone (Bootstrap Icons: megaphone)
         "icon": '''<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
             <path d="M13 2.5a1.5 1.5 0 0 1 3 0v11a1.5 1.5 0 0 1-3 0v-.214c-2.162-1.241-4.49-1.843-6.912-2.083l.405 2.712A1 1 0 0 1 5.51 15.1h-.548a1 1 0 0 1-.916-.599l-1.85-3.446a.32.32 0 0 0-.32-.192l.014.008a13.5 13.5 0 0 0-.15-.028 2.5 2.5 0 0 1 .217-4.978A61.94 61.94 0 0 0 8.078 5.83c1.986-.399 3.987-.977 5.922-1.727V2.5zm1 0v11a.5.5 0 0 0 1 0v-11a.5.5 0 0 0-1 0zM3.088 6.905a1.5 1.5 0 0 0-.132 2.995z"/>
         </svg>''',
@@ -248,7 +286,6 @@ menu_items = [
         "target": "_self",
         "bg": "#f1f2f6",
         "color": "#57606f",
-        # ikon tanda tanya (Bootstrap Icons: question-circle)
         "icon": '''<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
             <path d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"/>
             <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
@@ -258,19 +295,38 @@ menu_items = [
 
 for item in menu_items:
     target = item.get("target", "_blank")
-    st.markdown(f"""
-    <a href="{item['url']}" target="{target}" class="menu-card">
-        <div class="menu-icon" style="background-color:{item['bg']}; color:{item['color']};">
-            {item['icon']}
+    
+    if target == "_self":
+        st.markdown(f"""
+        <a href="{item['url']}" target="_self" class="menu-card">
+            <div class="menu-icon" style="background-color:{item['bg']}; color:{item['color']};">
+                {item['icon']}
+            </div>
+            <div class="menu-text">
+                <p class="menu-title">{item['title']}</p>
+                <p class="menu-sub">{item['sub']}</p>
+            </div>
+            <div class="menu-arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+                </svg>
+            </div>
+        </a>
+        """, unsafe_allow_html=True)
+    else:
+        st.markdown(f"""
+        <div onclick="window.parent.bukaDenganFallback('{item['url']}', '{FALLBACK_PAGE}')" class="menu-card">
+            <div class="menu-icon" style="background-color:{item['bg']}; color:{item['color']};">
+                {item['icon']}
+            </div>
+            <div class="menu-text">
+                <p class="menu-title">{item['title']}</p>
+                <p class="menu-sub">{item['sub']}</p>
+            </div>
+            <div class="menu-arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+                </svg>
+            </div>
         </div>
-        <div class="menu-text">
-            <p class="menu-title">{item['title']}</p>
-            <p class="menu-sub">{item['sub']}</p>
-        </div>
-        <div class="menu-arrow">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-            </svg>
-        </div>
-    </a>
-    """, unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
