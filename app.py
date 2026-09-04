@@ -327,6 +327,28 @@ st.markdown("<div style='margin-bottom: 18px;'></div>", unsafe_allow_html=True)
 st.markdown('<div class="menu-label">MENU UTAMA</div>', unsafe_allow_html=True)
 
 menu_items = [
+{
+        "title": "Rekaman Presensi",
+        "sub": "Rekam kehadiran Anda hari ini",
+        "url": "/Presensi",
+        "bg": "#fff4e6",
+        "color": "#d97706",
+        "icon": '''<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M10 1.5v1a.5.5 0 0 0 .5.5H11A1.5 1.5 0 0 1 12.5 4.5v9A1.5 1.5 0 0 1 11 15H5A1.5 1.5 0 0 1 3.5 13.5v-9A1.5 1.5 0 0 1 5 3h.5a.5.5 0 0 0 .5-.5v-1A1.5 1.5 0 0 1 7.5 0h1A1.5 1.5 0 0 1 10 1.5zM7.5 1a.5.5 0 0 0-.5.5V2h2v-.5a.5.5 0 0 0-.5-.5h-1z"/>
+            <path d="M10.854 7.146a.5.5 0 0 1 0 .708L8.207 10.5a.5.5 0 0 1-.707 0L6.146 9.146a.5.5 0 1 1 .708-.708l1 1 2.293-2.292a.5.5 0 0 1 .707 0z"/>
+        </svg>''',
+    },
+    {
+        "title": "Rekap Aktivitas",
+        "sub": "Riwayat aktivitas per pertemuan",
+        "url": "/Aktivitas",
+        "bg": "#fff4e6",
+        "color": "#d97706",
+        "icon": '''<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M10 1.5v1a.5.5 0 0 0 .5.5H11A1.5 1.5 0 0 1 12.5 4.5v9A1.5 1.5 0 0 1 11 15H5A1.5 1.5 0 0 1 3.5 13.5v-9A1.5 1.5 0 0 1 5 3h.5a.5.5 0 0 0 .5-.5v-1A1.5 1.5 0 0 1 7.5 0h1A1.5 1.5 0 0 1 10 1.5zM7.5 1a.5.5 0 0 0-.5.5V2h2v-.5a.5.5 0 0 0-.5-.5h-1z"/>
+            <path d="M10.854 7.146a.5.5 0 0 1 0 .708L8.207 10.5a.5.5 0 0 1-.707 0L6.146 9.146a.5.5 0 1 1 .708-.708l1 1 2.293-2.292a.5.5 0 0 1 .707 0z"/>
+        </svg>''',
+    },
     {
         "title": "Perijinan Mahasiswa",
         "sub": "Ajukan izin terencana, sakit, dan tugas luar",
@@ -339,7 +361,7 @@ menu_items = [
         </svg>''',
     },
     {
-        "title": "Rekap Aktivitas Saya",
+        "title": "Detil Aktivitas Saya",
         "sub": "Lihat ringkasan dan riwayat aktivitas",
         "url": "https://accounts.google.com/AccountChooser?continue=https://script.google.com/macros/s/AKfycbxtEoTgpp_yB4sYydJyekv52E_EcDXS1ekaU8EyVFDbLQG7LXNPgNMYm0yhjgdJADdw/exec",
         "bg": "#eafaf1",
@@ -369,28 +391,7 @@ menu_items = [
             <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
         </svg>''',
     },
-    {
-        "title": "Presensi",
-        "sub": "Rekam kehadiran Anda hari ini",
-        "url": "/Presensi",
-        "bg": "#eef2ff",
-        "color": "#4338ca",
-        "icon": '''<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
-            <path d="M11 6.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1z"/>
-            <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V4H1z"/>
-        </svg>''',
-    },
-    {
-        "title": "Aktivitas",
-        "sub": "Riwayat aktivitas per pertemuan",
-        "url": "/Aktivitas",
-        "bg": "#fef2f2",
-        "color": "#b91c1c",
-        "icon": '''<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
-            <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
-            <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/>
-        </svg>''',
-    },
+    
 ]
 
 # Pemetaan url internal -> path file asli di folder pages/
