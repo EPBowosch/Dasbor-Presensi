@@ -123,7 +123,7 @@ st.markdown("""
         box-shadow: 0 2px 10px rgba(26,60,110,0.15);
     }
 
-    /* ---- Tombol "Sebagai Mahasiswa" (st.button), meniru gaya mkl-btn.mahasiswa ---- */
+    /* ---- Tombol "Sebagai Mahasiswa" & "Sebagai Instruktur" (st.button), gaya seragam ---- */
     /* Nilai pixel di bawah ini bisa kamu tuning manual sampai pas */
     div[data-testid="column"]:nth-of-type(1) button {
         background-color: #e8f0fe !important;
@@ -151,6 +151,32 @@ st.markdown("""
         margin: 0 !important;
     }
 
+    div[data-testid="column"]:nth-of-type(2) button {
+        background-color: #eafaf0 !important;
+        border: 1px solid transparent !important;
+        border-radius: 12px !important;
+        height: 58px !important;
+        width: 100% !important;
+        padding: 4px 8px !important;
+        color: #1a7a4c !important;
+        font-size: 13px !important;
+        font-weight: 700 !important;
+        line-height: 1.3 !important;
+        white-space: pre-line !important;
+    }
+    div[data-testid="column"]:nth-of-type(2) button:hover {
+        border-color: #1a7a4c !important;
+        box-shadow: 0 2px 8px rgba(26,122,76,0.15);
+        color: #1a7a4c !important;
+    }
+    div[data-testid="column"]:nth-of-type(2) button p {
+        color: #1a7a4c !important;
+        font-size: 13px !important;
+        font-weight: 700 !important;
+        line-height: 1.3 !important;
+        margin: 0 !important;
+    }
+
     /* ---- Container MKL ---- */
     .mkl-container {
         background-color: white;
@@ -171,46 +197,6 @@ st.markdown("""
         font-size: 12px;
         color: #8792a2;
         margin: 0 0 14px 0;
-    }
-    .mkl-btn {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 4px;
-        padding: 14px 8px;
-        border-radius: 12px;
-        text-decoration: none;
-        font-size: 13.5px;
-        font-weight: 700;
-        transition: all 0.15s ease;
-        border: 1px solid transparent;
-        cursor: pointer;
-        height: 58px;
-        box-sizing: border-box;
-    }
-    .mkl-btn:hover {
-        transform: translateY(-1px);
-    }
-    .mkl-btn svg {
-        width: 22px;
-        height: 22px;
-    }
-    .mkl-btn.mahasiswa {
-        background-color: #e8f0fe;
-        color: #1a3c6e;
-    }
-    .mkl-btn.mahasiswa:hover {
-        border-color: #1a3c6e;
-        box-shadow: 0 2px 8px rgba(26,60,110,0.15);
-    }
-    .mkl-btn.instruktur {
-        background-color: #eafaf0;
-        color: #1a7a4c;
-    }
-    .mkl-btn.instruktur:hover {
-        border-color: #1a7a4c;
-        box-shadow: 0 2px 8px rgba(26,122,76,0.15);
     }
 </style>
 """, unsafe_allow_html=True)
@@ -296,21 +282,44 @@ with col_mhs:
     if st.button("🧑‍🎓\n\nSebagai Mahasiswa", key="btn_mhs", use_container_width=True):
         st.switch_page("pages/MKL.py")
 with col_instruktur:
-    st.markdown(f"""
-    <div data-url="{url_mkl_instruktur}" data-fallback="{FALLBACK_PAGE}" class="mkl-btn instruktur">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-            <circle cx="12" cy="8" r="3.4" fill="currentColor" stroke="none" opacity="0.15"/>
-            <circle cx="12" cy="8" r="3.4"/>
-            <circle cx="9.7" cy="9.4" r="1.4"/>
-            <circle cx="14.3" cy="9.4" r="1.4"/>
-            <path d="M11.1 9.4h1.8"/>
-            <path d="M8.3 9.1c-.7-.2-1.2-.2-1.7.1"/>
-            <path d="M15.7 9.1c.7-.2 1.2-.2 1.7.1"/>
-            <path d="M6 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/>
-        </svg>
-        Sebagai Instruktur
-    </div>
-    """, unsafe_allow_html=True)
+    if st.button("🧑‍🏫\n\nSebagai Instruktur", key="btn_instruktur", use_container_width=True):
+        components.html(f"""
+        <script>
+            (function() {{
+                var targetUrl = "{url_mkl_instruktur}";
+                var fallbackUrl = "{FALLBACK_PAGE}";
+                var targetWindow = window.parent.window.open('about:blank', '_blank');
+                if (!targetWindow) {{
+                    alert('Mohon izinkan pop-up pada peramban Anda untuk membuka menu.');
+                }} else {{
+                    var isResolved = false;
+                    var timeout = setTimeout(function() {{
+                        if (!isResolved) {{
+                            isResolved = true;
+                            targetWindow.close();
+                            window.parent.window.location.href = fallbackUrl;
+                        }}
+                    }}, 4500);
+                    fetch(targetUrl, {{ mode: 'no-cors', cache: 'no-store' }})
+                        .then(function() {{
+                            if (!isResolved) {{
+                                isResolved = true;
+                                clearTimeout(timeout);
+                                targetWindow.location.href = targetUrl;
+                            }}
+                        }})
+                        .catch(function() {{
+                            if (!isResolved) {{
+                                isResolved = true;
+                                clearTimeout(timeout);
+                                targetWindow.close();
+                                window.parent.window.location.href = fallbackUrl;
+                            }}
+                        }});
+                }}
+            }})();
+        </script>
+        """, height=0, width=0)
 
 st.markdown("<div style='margin-bottom: 18px;'></div>", unsafe_allow_html=True)
 
