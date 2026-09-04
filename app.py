@@ -129,12 +129,20 @@ st.markdown("""
         border: 1px solid transparent;
         border-radius: 12px;
         padding: 14px 8px;
-        text-align: center;
         box-shadow: none;
         height: 58px;
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+    div[data-testid="column"]:nth-of-type(1) div[data-testid="stPageLink"] a {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 2px !important;
+        width: 100%;
+        text-decoration: none !important;
     }
     div[data-testid="column"]:nth-of-type(1) div[data-testid="stPageLink"] * {
         color: #1a3c6e !important;
