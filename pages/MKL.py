@@ -27,7 +27,7 @@ email = st.user.email
 nama = st.user.name or email.split("@")[0]
 
 # Opsional tapi disarankan: batasi hanya domain kampus
-if not email.endswith("@atmi.ac.id"):
+if not email.endswith("atmi.ac.id"):
     st.error("Akun ini tidak terdaftar sebagai bagian dari domain atmi.ac.id.")
     st.button("Logout", on_click=st.logout)
     st.stop()
