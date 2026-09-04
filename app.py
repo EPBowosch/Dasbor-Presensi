@@ -123,36 +123,32 @@ st.markdown("""
         box-shadow: 0 2px 10px rgba(26,60,110,0.15);
     }
 
-    /* ---- Tombol "Sebagai Mahasiswa" meniru gaya mkl-btn.mahasiswa ---- */
-    div[data-testid="column"]:nth-of-type(1) div[data-testid="stPageLink"] {
+    /* ---- Tombol "Sebagai Mahasiswa" (st.button), meniru gaya mkl-btn.mahasiswa ---- */
+    /* Nilai pixel di bawah ini bisa kamu tuning manual sampai pas */
+    div[data-testid="column"]:nth-of-type(1) button {
         background-color: #e8f0fe !important;
-        border: 1px solid transparent;
-        border-radius: 12px;
-        padding: 14px 8px;
-        box-shadow: none;
-        height: 58px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    div[data-testid="column"]:nth-of-type(1) div[data-testid="stPageLink"] a {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-        gap: 2px !important;
-        width: 100%;
-        text-decoration: none !important;
-    }
-    div[data-testid="column"]:nth-of-type(1) div[data-testid="stPageLink"] * {
+        border: 1px solid transparent !important;
+        border-radius: 12px !important;
+        height: 58px !important;
+        width: 100% !important;
+        padding: 4px 8px !important;
         color: #1a3c6e !important;
-        fill: #1a3c6e !important;
-        font-size: 13.5px !important;
+        font-size: 13px !important;
         font-weight: 700 !important;
+        line-height: 1.3 !important;
+        white-space: pre-line !important;
     }
-    div[data-testid="column"]:nth-of-type(1) div[data-testid="stPageLink"]:hover {
-        border-color: #1a3c6e;
+    div[data-testid="column"]:nth-of-type(1) button:hover {
+        border-color: #1a3c6e !important;
         box-shadow: 0 2px 8px rgba(26,60,110,0.15);
+        color: #1a3c6e !important;
+    }
+    div[data-testid="column"]:nth-of-type(1) button p {
+        color: #1a3c6e !important;
+        font-size: 13px !important;
+        font-weight: 700 !important;
+        line-height: 1.3 !important;
+        margin: 0 !important;
     }
 
     /* ---- Container MKL ---- */
@@ -297,7 +293,8 @@ st.markdown("""
 
 col_mhs, col_instruktur = st.columns(2)
 with col_mhs:
-    st.page_link("pages/MKL.py", label="Sebagai Mahasiswa", icon="🧑‍🎓")
+    if st.button("🧑‍🎓\n\nSebagai Mahasiswa", key="btn_mhs", use_container_width=True):
+        st.switch_page("pages/MKL.py")
 with col_instruktur:
     st.markdown(f"""
     <div data-url="{url_mkl_instruktur}" data-fallback="{FALLBACK_PAGE}" class="mkl-btn instruktur">
