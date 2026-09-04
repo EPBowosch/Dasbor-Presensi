@@ -119,13 +119,13 @@ st.markdown("""
         box-shadow: 0 2px 10px rgba(26,60,110,0.15);
     }
 
-    /* ---- Container MKL dengan 2 tombol proporsional ---- */
+    /* ---- Container MKL ---- */
     .mkl-container {
         background-color: white;
         border: 1px solid #e2e6ed;
         border-radius: 14px;
-        padding: 18px 16px;
-        margin-bottom: 18px;
+        padding: 18px 16px 8px 16px;
+        margin-bottom: 8px;
         box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         text-align: center;
     }
@@ -140,12 +140,7 @@ st.markdown("""
         color: #8792a2;
         margin: 0 0 14px 0;
     }
-    .mkl-buttons {
-        display: flex;
-        gap: 10px;
-    }
     .mkl-btn {
-        flex: 1 1 0;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -159,6 +154,7 @@ st.markdown("""
         transition: all 0.15s ease;
         border: 1px solid transparent;
         cursor: pointer;
+        height: 100%;
     }
     .mkl-btn:hover {
         transform: translateY(-1px);
@@ -183,6 +179,25 @@ st.markdown("""
         border-color: #1a7a4c;
         box-shadow: 0 2px 8px rgba(26,122,76,0.15);
     }
+
+    /* Selaraskan tombol "Sebagai Mahasiswa" (st.page_link) dengan gaya mkl-btn.mahasiswa */
+    div[data-testid="column"]:nth-of-type(1) div[data-testid="stPageLink"] {
+        background-color: #e8f0fe;
+        border: 1px solid transparent;
+        border-radius: 12px;
+        padding: 14px 8px;
+        text-align: center;
+        box-shadow: none;
+    }
+    div[data-testid="column"]:nth-of-type(1) div[data-testid="stPageLink"] a {
+        color: #1a3c6e !important;
+        font-size: 13.5px;
+        justify-content: center;
+    }
+    div[data-testid="column"]:nth-of-type(1) div[data-testid="stPageLink"]:hover {
+        border-color: #1a3c6e;
+        box-shadow: 0 2px 8px rgba(26,60,110,0.15);
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -192,6 +207,7 @@ components.html("""
     window.parent.document.addEventListener('click', function(e) {
         var card = e.target.closest('.mkl-btn, .menu-card');
         if (!card) return;
+        if (!card.hasAttribute('data-url')) return;
 
         var targetUrl = card.getAttribute('data-url');
         var fallbackUrl = card.getAttribute('data-fallback');
@@ -251,37 +267,37 @@ st.markdown("""
 
 FALLBACK_PAGE = "/Petunjuk"
 
-# ---------- CONTAINER MKL (2 TOMBOL, eksternal - Apps Script) ----------
-url_mkl_mhs = "https://accounts.google.com/AccountChooser?continue=https://script.google.com/a/macros/atmi.ac.id/s/AKfycbyJGN50wnNe8k0b1u9xj8XZoNXScqxrYVeJ1U4bg-z_JQbo_t-XRzHZyqe5b09YP-Co/exec"
+# ---------- CONTAINER MKL (Mahasiswa -> internal MKL.py, Instruktur -> Apps Script) ----------
 url_mkl_instruktur = "https://accounts.google.com/AccountChooser?continue=https://script.google.com/a/macros/atmi.ac.id/s/AKfycbyjhCOW6svsWOtVkjtL3a1kqC2lPzQ7b8D9TMnR-LHNrAgirbwTtJEI7QzbKguuS7NJ/exec"
 
-st.markdown(f"""
+st.markdown("""
 <div class="mkl-container">
     <p class="mkl-title">Pencatatan Minus, Kompen, dan Lembur (MKL)</p>
     <p class="mkl-sub">Pilih peran Anda untuk melanjutkan</p>
-    <div class="mkl-buttons">
-        <div data-url="{url_mkl_mhs}" data-fallback="{FALLBACK_PAGE}" class="mkl-btn mahasiswa">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
-                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664z"/>
-            </svg>
-            Sebagai Mahasiswa
-        </div>
-        <div data-url="{url_mkl_instruktur}" data-fallback="{FALLBACK_PAGE}" class="mkl-btn instruktur">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
-                <circle cx="12" cy="8" r="3.4" fill="currentColor" stroke="none" opacity="0.15"/>
-                <circle cx="12" cy="8" r="3.4"/>
-                <circle cx="9.7" cy="9.4" r="1.4"/>
-                <circle cx="14.3" cy="9.4" r="1.4"/>
-                <path d="M11.1 9.4h1.8"/>
-                <path d="M8.3 9.1c-.7-.2-1.2-.2-1.7.1"/>
-                <path d="M15.7 9.1c.7-.2 1.2-.2 1.7.1"/>
-                <path d="M6 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/>
-            </svg>
-            Sebagai Instruktur
-        </div>
-    </div>
 </div>
 """, unsafe_allow_html=True)
+
+col_mhs, col_instruktur = st.columns(2)
+with col_mhs:
+    st.page_link("pages/MKL.py", label="Sebagai Mahasiswa", icon="🧑‍🎓")
+with col_instruktur:
+    st.markdown(f"""
+    <div data-url="{url_mkl_instruktur}" data-fallback="{FALLBACK_PAGE}" class="mkl-btn instruktur">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+            <circle cx="12" cy="8" r="3.4" fill="currentColor" stroke="none" opacity="0.15"/>
+            <circle cx="12" cy="8" r="3.4"/>
+            <circle cx="9.7" cy="9.4" r="1.4"/>
+            <circle cx="14.3" cy="9.4" r="1.4"/>
+            <path d="M11.1 9.4h1.8"/>
+            <path d="M8.3 9.1c-.7-.2-1.2-.2-1.7.1"/>
+            <path d="M15.7 9.1c.7-.2 1.2-.2 1.7.1"/>
+            <path d="M6 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/>
+        </svg>
+        Sebagai Instruktur
+    </div>
+    """, unsafe_allow_html=True)
+
+st.markdown("<div style='margin-bottom: 18px;'></div>", unsafe_allow_html=True)
 
 # ---------- MENU ----------
 st.markdown('<div class="menu-label">MENU UTAMA</div>', unsafe_allow_html=True)
@@ -329,23 +345,12 @@ menu_items = [
             <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
         </svg>''',
     },
-        {
-        "title": "Presensi Aktivitas",
-        "sub": "Catat aktivitas dan generate QR Code",
-        "url": "/MKL",
-        "bg": "#e6f0ff",
-        "color": "#2563eb",
-        "icon": '''<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
-            <path d="M2 2h2v2H2V2zm1 1v0h0zM7 2H6v1h1V2zM8 2h1v1H8V2zM2 6h1v1H2V6zM7 6H6v1h1V6zm1 0h1v1H8V6zM5 3H4v1h1V3zM2 4h1v1H2V4zm3 3H4v1h1V7zM3 6H2v1h1V6zM6 4H5v1h1V4zM8 4h1v1H8V4zM2 9h5v5H2V9zm1 1v3h3v-3H3zm7-9h4v4h-4V1zm1 1v2h2V2h-2zM1 10v3h1v-3H1zm9-1h1v1h-1V9zm3 0h1v1h-1V9zm-2 1h1v1h-1v-1zm2 0h1v2h-1v-2zm-3 1h1v1h-1v-1zm1 1h1v1h-1v-1zm2 0h1v1h-1v-1zm-1 1h1v1h-1v-1zm2 0h1v1h-1v-1z"/>
-        </svg>''',
-    },
 ]
 
-# Pemetaan url internal -> path file asli di folder pages/ (sesuaikan dengan struktur kamu)
+# Pemetaan url internal -> path file asli di folder pages/
 PAGE_MAP = {
     "/Input_MKL": "pages/1_Input_MKL.py",
     "/Petunjuk": "pages/1_Petunjuk.py",
-    "/MKL": "pages/MKL.py",
     "/Aktivitas": "pages/3_Aktivitas.py",
 }
 
