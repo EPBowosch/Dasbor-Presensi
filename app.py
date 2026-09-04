@@ -100,23 +100,51 @@ st.markdown("""
         color: #c2c9d6;
     }
 
-    /* ---- Styling khusus untuk st.page_link (halaman internal) ---- */
+    /* ---- st.page_link umum (menu utama) ---- */
     div[data-testid="stPageLink"] {
-        background-color: white;
+        background-color: white !important;
         border: 1px solid #e2e6ed;
         border-radius: 14px;
-        padding: 4px 10px;
+        padding: 12px 16px;
         margin-bottom: 10px;
         box-shadow: 0 1px 3px rgba(0,0,0,0.05);
     }
-    div[data-testid="stPageLink"] a {
+    div[data-testid="stPageLink"] * {
+        color: #1a3c6e !important;
+        fill: #1a3c6e !important;
+    }
+    div[data-testid="stPageLink"] p {
         font-size: 15px;
         font-weight: 600;
-        color: #1a3c6e !important;
+        margin: 0;
     }
     div[data-testid="stPageLink"]:hover {
         border-color: #1a3c6e;
         box-shadow: 0 2px 10px rgba(26,60,110,0.15);
+    }
+
+    /* ---- Tombol "Sebagai Mahasiswa" meniru gaya mkl-btn.mahasiswa ---- */
+    div[data-testid="column"]:nth-of-type(1) div[data-testid="stPageLink"] {
+        background-color: #e8f0fe !important;
+        border: 1px solid transparent;
+        border-radius: 12px;
+        padding: 14px 8px;
+        text-align: center;
+        box-shadow: none;
+        height: 58px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    div[data-testid="column"]:nth-of-type(1) div[data-testid="stPageLink"] * {
+        color: #1a3c6e !important;
+        fill: #1a3c6e !important;
+        font-size: 13.5px !important;
+        font-weight: 700 !important;
+    }
+    div[data-testid="column"]:nth-of-type(1) div[data-testid="stPageLink"]:hover {
+        border-color: #1a3c6e;
+        box-shadow: 0 2px 8px rgba(26,60,110,0.15);
     }
 
     /* ---- Container MKL ---- */
@@ -154,7 +182,8 @@ st.markdown("""
         transition: all 0.15s ease;
         border: 1px solid transparent;
         cursor: pointer;
-        height: 100%;
+        height: 58px;
+        box-sizing: border-box;
     }
     .mkl-btn:hover {
         transform: translateY(-1px);
@@ -178,25 +207,6 @@ st.markdown("""
     .mkl-btn.instruktur:hover {
         border-color: #1a7a4c;
         box-shadow: 0 2px 8px rgba(26,122,76,0.15);
-    }
-
-    /* Selaraskan tombol "Sebagai Mahasiswa" (st.page_link) dengan gaya mkl-btn.mahasiswa */
-    div[data-testid="column"]:nth-of-type(1) div[data-testid="stPageLink"] {
-        background-color: #e8f0fe;
-        border: 1px solid transparent;
-        border-radius: 12px;
-        padding: 14px 8px;
-        text-align: center;
-        box-shadow: none;
-    }
-    div[data-testid="column"]:nth-of-type(1) div[data-testid="stPageLink"] a {
-        color: #1a3c6e !important;
-        font-size: 13.5px;
-        justify-content: center;
-    }
-    div[data-testid="column"]:nth-of-type(1) div[data-testid="stPageLink"]:hover {
-        border-color: #1a3c6e;
-        box-shadow: 0 2px 8px rgba(26,60,110,0.15);
     }
 </style>
 """, unsafe_allow_html=True)
