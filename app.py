@@ -12,6 +12,7 @@ st.set_page_config(
 st.markdown("""
 <style>
     #MainMenu, footer, header {visibility: hidden;}
+    [data-testid="stSidebarNav"] {display: none;}
     .block-container {padding-top: 1.5rem; padding-bottom: 2rem; max-width: 480px;}
 
     .header-card {
@@ -46,7 +47,7 @@ st.markdown("""
         letter-spacing: 0.3px;
     }
 
-    /* ---- Kartu menu dengan ikon ---- */
+    /* ---- Kartu menu dengan ikon (untuk link eksternal) ---- */
     .menu-card {
         display: flex;
         align-items: center;
@@ -97,6 +98,25 @@ st.markdown("""
     .menu-arrow {
         flex-shrink: 0;
         color: #c2c9d6;
+    }
+
+    /* ---- Styling khusus untuk st.page_link (halaman internal) ---- */
+    div[data-testid="stPageLink"] {
+        background-color: white;
+        border: 1px solid #e2e6ed;
+        border-radius: 14px;
+        padding: 4px 10px;
+        margin-bottom: 10px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    div[data-testid="stPageLink"] a {
+        font-size: 15px;
+        font-weight: 600;
+        color: #1a3c6e !important;
+    }
+    div[data-testid="stPageLink"]:hover {
+        border-color: #1a3c6e;
+        box-shadow: 0 2px 10px rgba(26,60,110,0.15);
     }
 
     /* ---- Container MKL dengan 2 tombol proporsional ---- */
@@ -166,32 +186,31 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# ---------- INJEKSI JAVASCRIPT GLOBAL UNTUK FALLBACK ----------
-# Menggunakan penanganan klik yang aman dari masalah iframe sandboxing Streamlit
+# ---------- INJEKSI JAVASCRIPT GLOBAL UNTUK FALLBACK (khusus link EKSTERNAL) ----------
 components.html("""
 <script>
     window.parent.document.addEventListener('click', function(e) {
         var card = e.target.closest('.mkl-btn, .menu-card');
         if (!card) return;
-        
+
         var targetUrl = card.getAttribute('data-url');
         var fallbackUrl = card.getAttribute('data-fallback');
         if (!targetUrl) return;
-        
+
         e.preventDefault();
         e.stopPropagation();
-        
-        if (targetUrl.startsWith('/') || !targetUrl.includes('script.google.com')) {
+
+        if (!targetUrl.includes('script.google.com')) {
             window.parent.window.location.href = targetUrl;
             return;
         }
-        
+
         var targetWindow = window.parent.window.open('about:blank', '_blank');
         if(!targetWindow) {
             alert('Mohon izinkan pop-up pada peramban Anda untuk membuka menu.');
             return;
         }
-        
+
         var isResolved = false;
         var timeout = setTimeout(function() {
             if (!isResolved) {
@@ -200,7 +219,7 @@ components.html("""
                 window.parent.window.location.href = fallbackUrl;
             }
         }, 4500);
-        
+
         fetch(targetUrl, { mode: 'no-cors', cache: 'no-store' })
             .then(function() {
                 if (!isResolved) {
@@ -232,7 +251,7 @@ st.markdown("""
 
 FALLBACK_PAGE = "/Petunjuk"
 
-# ---------- CONTAINER MKL (2 TOMBOL) ----------
+# ---------- CONTAINER MKL (2 TOMBOL, eksternal - Apps Script) ----------
 url_mkl_mhs = "https://accounts.google.com/AccountChooser?continue=https://script.google.com/a/macros/atmi.ac.id/s/AKfycbyJGN50wnNe8k0b1u9xj8XZoNXScqxrYVeJ1U4bg-z_JQbo_t-XRzHZyqe5b09YP-Co/exec"
 url_mkl_instruktur = "https://accounts.google.com/AccountChooser?continue=https://script.google.com/a/macros/atmi.ac.id/s/AKfycbyjhCOW6svsWOtVkjtL3a1kqC2lPzQ7b8D9TMnR-LHNrAgirbwTtJEI7QzbKguuS7NJ/exec"
 
@@ -313,7 +332,7 @@ menu_items = [
     {
         "title": "Presensi Aktivitas",
         "sub": "Catat aktivitas dan generate QR Code",
-        "url": "/presensi",
+        "url": "/Presensi",
         "bg": "#e6f0ff",
         "color": "#2563eb",
         "icon": '''<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
@@ -322,20 +341,37 @@ menu_items = [
     },
 ]
 
+# Pemetaan url internal -> path file asli di folder pages/ (sesuaikan dengan struktur kamu)
+PAGE_MAP = {
+    "/Input_MKL": "pages/1_Input_MKL.py",
+    "/Petunjuk": "pages/1_Petunjuk.py",
+    "/Presensi": "pages/2_Presensi.py",
+    "/Aktivitas": "pages/3_Aktivitas.py",
+}
+
 for item in menu_items:
-    st.markdown(f"""
-    <div data-url="{item['url']}" data-fallback="{FALLBACK_PAGE}" class="menu-card">
-        <div class="menu-icon" style="background-color:{item['bg']}; color:{item['color']};">
-            {item['icon']}
+    if item["url"].startswith("/"):
+        # Halaman internal -> st.page_link (aman dari batasan sandbox iframe)
+        page_path = PAGE_MAP.get(item["url"])
+        if page_path:
+            st.page_link(page_path, label=f"{item['title']} — {item['sub']}", icon="📋")
+        else:
+            st.warning(f"Path untuk {item['url']} belum dipetakan di PAGE_MAP.")
+    else:
+        # Halaman eksternal (Apps Script, dll) -> tetap pakai card HTML + JS
+        st.markdown(f"""
+        <div data-url="{item['url']}" data-fallback="{FALLBACK_PAGE}" class="menu-card">
+            <div class="menu-icon" style="background-color:{item['bg']}; color:{item['color']};">
+                {item['icon']}
+            </div>
+            <div class="menu-text">
+                <p class="menu-title">{item['title']}</p>
+                <p class="menu-sub">{item['sub']}</p>
+            </div>
+            <div class="menu-arrow">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+                </svg>
+            </div>
         </div>
-        <div class="menu-text">
-            <p class="menu-title">{item['title']}</p>
-            <p class="menu-sub">{item['sub']}</p>
-        </div>
-        <div class="menu-arrow">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16">
-                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
-            </svg>
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
