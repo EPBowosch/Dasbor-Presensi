@@ -310,6 +310,16 @@ menu_items = [
             <path d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z"/>
         </svg>''',
     },
+    {
+        "title": "Presensi Aktivitas",
+        "sub": "Catat aktivitas dan generate QR Code",
+        "url": "/presensi",
+        "bg": "#e6f0ff",
+        "color": "#2563eb",
+        "icon": '''<svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M2 2h2v2H2V2zm1 1v0h0zM7 2H6v1h1V2zM8 2h1v1H8V2zM2 6h1v1H2V6zM7 6H6v1h1V6zm1 0h1v1H8V6zM5 3H4v1h1V3zM2 4h1v1H2V4zm3 3H4v1h1V7zM3 6H2v1h1V6zM6 4H5v1h1V4zM8 4h1v1H8V4zM2 9h5v5H2V9zm1 1v3h3v-3H3zm7-9h4v4h-4V1zm1 1v2h2V2h-2zM1 10v3h1v-3H1zm9-1h1v1h-1V9zm3 0h1v1h-1V9zm-2 1h1v1h-1v-1zm2 0h1v2h-1v-2zm-3 1h1v1h-1v-1zm1 1h1v1h-1v-1zm2 0h1v1h-1v-1zm-1 1h1v1h-1v-1zm2 0h1v1h-1v-1z"/>
+        </svg>''',
+    },
 ]
 
 for item in menu_items:
