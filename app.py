@@ -329,7 +329,7 @@ st.markdown('<div class="menu-label">MENU UTAMA</div>', unsafe_allow_html=True)
 menu_items = [
 {
         "title": "Rekaman Presensi",
-        "sub": "Rekam kehadiran Anda hari ini",
+        "sub": "Rekam kehadiran Anda bulan ini",
         "url": "/Presensi",
         "bg": "#fff4e6",
         "color": "#d97706",
@@ -340,7 +340,7 @@ menu_items = [
     },
     {
         "title": "Rekap Aktivitas",
-        "sub": "Riwayat aktivitas per pertemuan",
+        "sub": "Riwayat aktivitas MKL",
         "url": "/Aktivitas",
         "bg": "#fff4e6",
         "color": "#d97706",
