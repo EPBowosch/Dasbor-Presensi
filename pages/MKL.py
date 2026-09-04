@@ -24,7 +24,7 @@ if not st.user.is_logged_in:
     st.stop()
 
 email = st.user.email
-nama = email.split("@")[0]
+nama = st.user.name or email.split("@")[0]
 
 # Opsional tapi disarankan: batasi hanya domain kampus
 if not email.endswith("@atmi.ac.id"):
